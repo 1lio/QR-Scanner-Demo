@@ -19,6 +19,16 @@ android {
 
         consumerProguardFiles("consumer-rules.pro")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+      /*  javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += mutableMapOf(
+                    "room.incremental" to "true",
+                    "room.expandProjection" to "true",
+                    "room.schemaLocation" to "$projectDir/schemas"
+                )
+            }
+        }*/
     }
 
     buildTypes {
@@ -27,7 +37,6 @@ android {
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
-
         getByName("debug") {
             isMinifyEnabled = false
             applicationIdSuffix = ".debug"
@@ -81,6 +90,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
     implementation("androidx.activity:activity-ktx:1.1.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
     implementation("androidx.fragment:fragment-ktx:1.3.0-rc02")
 
     // Firebase
@@ -102,7 +112,10 @@ dependencies {
     implementation("androidx.camera:camera-view:1.0.0-alpha21")    // CameraX View class
 
     // DataStore
-    implementation("androidx.datastore:datastore:1.0.0-alpha06")
+    val datastoreVer = "1.0.0-alpha06"
+    implementation("androidx.datastore:datastore:$datastoreVer")
+    implementation("androidx.datastore:datastore-core:$datastoreVer")
+    implementation("androidx.datastore:datastore-preferences:$datastoreVer")
 
     // Room
     val roomVer = "2.2.6"
@@ -126,6 +139,10 @@ dependencies {
     // Mics
     implementation("com.jakewharton.timber:timber:4.7.1")
     implementation("com.kirich1409.viewbindingpropertydelegate:viewbindingpropertydelegate:1.4.1")
+    implementation ("com.github.bumptech.glide:glide:4.11.0")
+
+    // Proto
+    implementation("com.google.protobuf:protobuf-javalite:3.11.0")
 
     // Tests
     testImplementation("junit:junit:4.13.1")
