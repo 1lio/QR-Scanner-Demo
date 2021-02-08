@@ -3,4 +3,8 @@
     <string name="chat">Чат</string>
     <string name="check_list">Лист заказов</string>
     <string name="scanner">Сканнер</string>
+    <string name="settings">Настройки</string>
+
+    <string name="dark_mode">Dark Mode</string>
+
 </resources>

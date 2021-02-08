@@ -35,4 +35,11 @@
         android:name="vi.sukhov.scanner.ui.home.chat.ChatFragment"
         android:label="Chat"
         tools:layout="@layout/fragment_chat" />
+
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="vi.sukhov.scanner.ui.home.settings.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>
