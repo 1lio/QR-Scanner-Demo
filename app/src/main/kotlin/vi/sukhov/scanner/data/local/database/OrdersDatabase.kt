@@ -16,7 +16,6 @@ abstract class OrdersDatabase : RoomDatabase() {
 
         fun buildDatabase(context: Context): OrdersDatabase {
             return Room.databaseBuilder(context, OrdersDatabase::class.java, DATABASE_NAME).build()
-
         }
     }
 }

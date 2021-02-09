@@ -6,5 +6,6 @@
     <string name="settings">Настройки</string>
 
     <string name="dark_mode">Dark Mode</string>
+    <string name="sign_out">Выйти из учетной записи</string>
 
 </resources>

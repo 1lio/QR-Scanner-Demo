@@ -1,17 +1,18 @@
 package vi.sukhov.scanner.ui.home.settings
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.CompoundButton
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import vi.sukhov.scanner.R
 import vi.sukhov.scanner.core.common.BaseFragment
 import vi.sukhov.scanner.databinding.FragmentSettingsBinding
-import vi.sukhov.scanner.util.ThemeHelper
-import vi.sukhov.scanner.util.ThemeMode
-import vi.sukhov.scanner.util.extensions.doOnChange
+import vi.sukhov.scanner.ui.auth.AuthActivity
+
+// Основыные настройки приложения
 
 @AndroidEntryPoint
 class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
@@ -22,25 +23,31 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.settingsDarkModeSwitch.isChecked = viewModel.isDarkMode.value ?: false
+        loadingSetting()    // Загружаем графическое отражение настроек
 
-        binding.settingsDarkModeSwitch.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.inThemeChanged(isChecked)
-        }
-
-   /*     viewModel.isDarkMode.observe(viewLifecycleOwner, {
-            Timber.d("On Theme changed")
-            ThemeHelper.applyTheme(if (it) ThemeMode.Dark else ThemeMode.Light)
-        })*/
-
-        observeViewModel()
+        // Устанавливаем обработчики
+        binding.settingsDarkModeSwitch.setOnCheckedChangeListener(::switchListener)
+        binding.signOut.setOnClickListener(::signOut)
     }
 
-    private fun observeViewModel() {
-        viewModel.isDarkMode.doOnChange(this) {
-            Timber.d("On Theme changed")
-            ThemeHelper.applyTheme(if (it) ThemeMode.Dark else ThemeMode.Light)
+    private fun switchListener(buttonView: CompoundButton, isChecked: Boolean) {
+        viewModel.inThemeChanged(isChecked)
+    }
+
+    private fun startActivityAuth() {
+        Intent(requireContext(), AuthActivity::class.java).apply {
+            startActivity(this)
+            activity?.finish()
         }
+    }
+
+    private fun loadingSetting() {
+        binding.settingsDarkModeSwitch.isChecked = viewModel.isDarkMode.value ?: false
+    }
+
+    private fun signOut(view: View) {
+        viewModel.signOut()
+        startActivityAuth()
     }
 
 }

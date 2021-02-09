@@ -1,6 +1,10 @@
 package vi.sukhov.scanner.data.repository.auth
 
-class AuthRepository {
+import com.google.firebase.auth.FirebaseAuth
+import javax.inject.Inject
 
-    // Заглушка
+class AuthRepository @Inject constructor(private val firebaseAuth: FirebaseAuth) {
+
+    fun getAuthCreds(): FirebaseAuth = firebaseAuth
+
 }
