@@ -1,6 +1,7 @@
 package vi.sukhov.scanner.core.di
 
 import android.content.Context
+import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,4 +19,8 @@ class AppModule {
     @Singleton
     fun providePreferenceStorage(@ApplicationContext context: Context): PreferenceStorage =
         SharedPreferenceStorage(context)
+
+    @Provides
+    @Singleton
+    fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
 }

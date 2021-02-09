@@ -20,7 +20,7 @@ import vi.sukhov.scanner.util.ThemeMode
 @AndroidEntryPoint
 class HomeActivity : BaseActivity(R.layout.activity_home), NavigationHost {
 
-    private val binding by viewBinding(ActivityHomeBinding::bind)
+    private val binding:ActivityHomeBinding by viewBinding()
     private val viewModel: HomeActivityViewModel by viewModels()
 
     companion object {
@@ -36,14 +36,11 @@ class HomeActivity : BaseActivity(R.layout.activity_home), NavigationHost {
     private var navHostFragment: NavHostFragment? = null
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ThemeHelper.applyTheme(if (viewModel.isDarkModeOn()) ThemeMode.Dark else ThemeMode.Light)
 
-        navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.homeNavHostFragment) as? NavHostFragment
-                ?: return
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.homeNavHostFragment) as? NavHostFragment ?: return
 
         navController = findNavController(R.id.homeNavHostFragment)
         appBarConfiguration = AppBarConfiguration(TOP_LEVEL_DESTINATIONS)
