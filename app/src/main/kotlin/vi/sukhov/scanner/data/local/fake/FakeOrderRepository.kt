@@ -28,15 +28,15 @@ class FakeOrderRepository : OrdersDatabase {
             date = "08.12.20",
             status = "В листе ожидания",
             image = null
-        ),
-        Order(
+        )
+   /*     Order(
             id = null,
             title = null,
             code = "0811300016",
             date = null,
             status = null,  // Данного продукта не сущ. в базе
             image = null
-        )
+        )*/
     )
 
     private val currentDate: Date = Date()
