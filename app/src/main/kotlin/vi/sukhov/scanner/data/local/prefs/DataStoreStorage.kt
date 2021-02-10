@@ -61,7 +61,7 @@ class DataStoreStorage @Inject constructor(context: Context) : PreferenceStorage
             return result
         }
 
-    suspend fun flowDarkMode(): Flow<Unit> = dataStore.data.catch { exception ->
+    override fun flowIsDarkMode(): Flow<Boolean> = dataStore.data.catch { exception ->
         if (exception is IOException) emit(emptyPreferences()) else throw exception
-    }.map { it[KEY_IS_DARK_MODE] }
+    }.map { it[KEY_IS_DARK_MODE] ?: false }
 }

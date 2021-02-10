@@ -3,6 +3,9 @@ package vi.sukhov.scanner.data.local.prefs
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.properties.ReadWriteProperty
@@ -25,6 +28,16 @@ class SharedPreferenceStorage @Inject constructor(context: Context) : Preference
     override var timeLoadedAt by LongPreference(prefs, PREFS_TIME_LOADED_AT, 0)
 
     override var isDarkMode by BooleanPreference(prefs, PREFS_IS_DARK_MODE, false)
+
+    // Tmp!!!
+    override fun flowIsDarkMode(): Flow<Boolean> {
+        return flow {
+            while (true) {
+                delay(5000L)
+                emit(isDarkMode)
+            }
+        }
+    }
 
     class BooleanPreference(
         private val preferences: Lazy<SharedPreferences>,

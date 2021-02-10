@@ -1,5 +1,6 @@
 package vi.sukhov.scanner.data.repository.settings
 
+import kotlinx.coroutines.flow.Flow
 import vi.sukhov.scanner.data.local.prefs.PreferenceStorage
 import javax.inject.Inject
 
@@ -12,4 +13,6 @@ class SettingsRepository @Inject constructor(private val preferenceStorage: Pref
     fun setThemeMode(isDarkMode: Boolean) {
         preferenceStorage.isDarkMode = isDarkMode
     }
+
+    fun flowIsDarkMode() : Flow<Boolean>  = preferenceStorage.flowIsDarkMode()
 }
