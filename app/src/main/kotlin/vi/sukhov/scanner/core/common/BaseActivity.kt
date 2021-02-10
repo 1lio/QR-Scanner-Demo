@@ -1,6 +1,7 @@
 package vi.sukhov.scanner.core.common
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
@@ -39,17 +40,21 @@ abstract class BaseActivity(@LayoutRes layout: Int) : AppCompatActivity(layout) 
     }
 
     private fun observeModeTheme() {
-     /*   lifecycleScope.launch {
-            viewModel.flowIsDarkMode().collect {
-                applyTheme(if (!it) ThemeMode.DARK else ThemeMode.LIGHT)
-            }
-        }
-*/
+        /*   lifecycleScope.launch {
+               viewModel.flowIsDarkMode().collect {
+                   applyTheme(if (!it) ThemeMode.DARK else ThemeMode.LIGHT)
+               }
+           }
+   */
         /*  lifecycleScope.launchWhenCreated {
                 viewModel.isDarkMode.collect {
                     applyTheme(if (it) ThemeMode.DARK else ThemeMode.LIGHT)
                 }
             }*/
+    }
+
+    fun toast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
+        Toast.makeText(this, msg, duration).show()
     }
 
     // Тип темы сохраню как константу (мини оптимизация enum)
