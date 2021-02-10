@@ -7,7 +7,9 @@ import vi.sukhov.scanner.entity.Order
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Singleton
 
+@Singleton
 class FakeOrderRepository : OrdersDatabase {
 
     private val fakeData = mutableSetOf(
