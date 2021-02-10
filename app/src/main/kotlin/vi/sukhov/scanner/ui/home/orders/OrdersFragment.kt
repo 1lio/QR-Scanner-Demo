@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import vi.sukhov.scanner.R
 import vi.sukhov.scanner.core.common.BaseFragment
 import vi.sukhov.scanner.databinding.FragmentOrderListBinding
@@ -25,10 +27,11 @@ class OrdersFragment : BaseFragment(R.layout.fragment_order_list) {
     private val viewModel: OrdersViewModel by viewModels()
 
     private lateinit var navController: NavController
+    private lateinit var listAdapter: OrderListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, group: ViewGroup?, state: Bundle?): View? {
         navController = findNavController(activity as HomeActivity, R.id.homeNavHostFragment)
-         //ordersAdapter.updateListAndNotify(it)
+        listAdapter = OrderListAdapter(onClickOrder())
         return super.onCreateView(inflater, group, state)
     }
 
@@ -38,9 +41,14 @@ class OrdersFragment : BaseFragment(R.layout.fragment_order_list) {
         binding.recyclerOrders.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            adapter = OrderListAdapter(onClickOrder())
+            adapter = listAdapter
         }
 
+        lifecycleScope.launchWhenStarted {
+            viewModel.listOrders.collect {
+                listAdapter.updateListAndNotify(it)
+            }
+        }
     }
 
     private fun onClickOrder(): ClickOrder {

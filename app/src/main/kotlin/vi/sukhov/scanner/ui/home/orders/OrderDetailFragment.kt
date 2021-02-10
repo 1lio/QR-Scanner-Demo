@@ -2,7 +2,7 @@ package vi.sukhov.scanner.ui.home.orders
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -28,7 +28,8 @@ class OrderDetailFragment : BaseFragment(R.layout.fragment_order_detail) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController = Navigation.findNavController(activity as HomeActivity, R.id.homeNavHostFragment)
+        navController =
+            Navigation.findNavController(activity as HomeActivity, R.id.homeNavHostFragment)
         idOrder = arguments?.getString("idOrder") ?: "not args"
 
         GlobalScope.launch(Dispatchers.Main) { bindViews() }
@@ -43,23 +44,22 @@ class OrderDetailFragment : BaseFragment(R.layout.fragment_order_detail) {
         binding.dateDetailOrder.text = order.date
 
         binding.buttonMoveToWaitList.setOnClickListener {
-            GlobalScope.launch {
+            lifecycleScope.launch {
                 order.status = "В листе ожидания"
                 repoTmp.updateOrder(order)
             }
         }
 
         binding.buttonConfirm.setOnClickListener {
-            GlobalScope.launch {
+            lifecycleScope.launch {
                 order.status = "Зачислено на склад"
                 repoTmp.updateOrder(order)
             }
         }
 
         binding.buttonRemove.setOnClickListener {
-            GlobalScope.launch {
+            lifecycleScope.launch {
                 repoTmp.removeOrder(order.id ?: "")
-                Toast.makeText(context, "Order has been deleted!", Toast.LENGTH_SHORT).show()
                 navController.navigate(R.id.action_navigation_order_detail_to_navigation_orders)
             }
         }

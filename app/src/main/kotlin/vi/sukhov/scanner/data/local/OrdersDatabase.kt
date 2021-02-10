@@ -15,5 +15,9 @@ interface OrdersDatabase {
 
     fun removeAllOrders()
 
+    // flow
     fun getOrderListFlow(): Flow<List<Order>>
+
+    // sync
+    fun getOrderList(): List<Order>
 }

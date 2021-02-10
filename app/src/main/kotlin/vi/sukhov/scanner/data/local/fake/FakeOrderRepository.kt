@@ -29,14 +29,14 @@ class FakeOrderRepository : OrdersDatabase {
             status = "На складе",
             image = null
         )
-   /*     Order(
-            id = null,
-            title = null,
-            code = "0811300016",
-            date = null,
-            status = null,  // Данного продукта не сущ. в базе
-            image = null
-        )*/
+        /*     Order(
+                 id = null,
+                 title = null,
+                 code = "0811300016",
+                 date = null,
+                 status = null,  // Данного продукта не сущ. в базе
+                 image = null
+             )*/
     )
 
     private val currentDate: Date = Date()
@@ -92,5 +92,9 @@ class FakeOrderRepository : OrdersDatabase {
         return flow {
             emit(fakeData.toList())
         }
+    }
+
+    override fun getOrderList(): List<Order> {
+        return fakeData.toList()
     }
 }

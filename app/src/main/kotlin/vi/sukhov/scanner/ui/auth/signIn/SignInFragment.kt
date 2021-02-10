@@ -62,8 +62,7 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-                        else -> {
-                        }
+                        else -> Unit
                     }
                 }
             }

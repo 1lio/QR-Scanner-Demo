@@ -8,18 +8,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import vi.sukhov.scanner.data.repository.auth.AuthRepository
-import vi.sukhov.scanner.data.repository.settings.SettingsRepository
 import javax.inject.Inject
 
 @HiltViewModel
-class AuthViewModel @Inject constructor(
-    private val authRepo: AuthRepository
-) : ViewModel() {
+class AuthViewModel @Inject constructor(private val authRepo: AuthRepository) : ViewModel() {
 
     private val _flowStates: MutableStateFlow<UiStates> = MutableStateFlow(UiStates.EmptyState)
     val uiStates: StateFlow<UiStates> = _flowStates
 
-    //LiveData
     fun signUpUser(email: String, password: String) {
         viewModelScope.launch {
             try {
@@ -52,4 +48,5 @@ class AuthViewModel @Inject constructor(
         data class Error(var exception: String) : UiStates()
         object EmptyState : UiStates()
     }
+
 }
