@@ -7,7 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import vi.sukhov.scanner.databinding.ItemOrderBinding
 import vi.sukhov.scanner.entity.Order
 
-class OrderListAdapter(private val itemClickListener: View.OnClickListener) :
+interface ClickOrder {
+    fun onClick(id: String?)
+}
+
+class OrderListAdapter(private val itemClickListener: ClickOrder) :
     RecyclerView.Adapter<OrderListAdapter.OrderViewHolder>() {
 
     private val list: ArrayList<Order> = arrayListOf()
@@ -37,7 +41,9 @@ class OrderListAdapter(private val itemClickListener: View.OnClickListener) :
             v.code.text = item.code
             v.status.text = item.status
 
-            itemView.setOnClickListener(itemClickListener)
+            itemView.setOnClickListener {
+                itemClickListener.onClick(item.id)
+            }
         }
     }
 

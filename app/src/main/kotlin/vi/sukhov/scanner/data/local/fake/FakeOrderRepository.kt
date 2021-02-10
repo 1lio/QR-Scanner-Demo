@@ -22,11 +22,11 @@ class FakeOrderRepository : OrdersDatabase {
             image = null
         ),
         Order(
-            id = "0811300016",
+            id = "08113004562",
             title = "Фарнитура №2 FAKE",
             code = "0811300016",
-            date = "08.12.20",
-            status = "В листе ожидания",
+            date = "12.12.21",
+            status = "На складе",
             image = null
         )
    /*     Order(

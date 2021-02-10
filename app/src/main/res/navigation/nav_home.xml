@@ -22,13 +22,23 @@
         <action
             android:id="@+id/action_navigation_orders_to_navigation_order_detail"
             app:destination="@id/navigation_order_detail" />
+        <argument
+            android:name="idOrder"
+            app:argType="string" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_order_detail"
         android:name="vi.sukhov.scanner.ui.home.orders.OrderDetailFragment"
         android:label="Order Detail"
-        tools:layout="@layout/fragment_order_list" />
+        tools:layout="@layout/fragment_order_list" >
+        <action
+            android:id="@+id/action_navigation_order_detail_to_navigation_orders"
+            app:destination="@id/navigation_orders" />
+        <argument
+            android:name="idOrder"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_chat"
