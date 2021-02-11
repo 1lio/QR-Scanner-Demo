@@ -16,27 +16,19 @@ class FakeOrderRepository : OrdersDatabase {
         Order(
             id = "0811300016",
             title = "Фарнитура №1 FAKE",
-            code = "0811300016",
+            code = "0811300016AD",
             date = "08.12.20",
             status = "В листе ожидания",
             image = null
         ),
         Order(
-            id = "08113004562",
+            id = "1792310627",
             title = "Фарнитура №2 FAKE",
-            code = "0811300016",
+            code = "1792310627DA",
             date = "12.12.21",
             status = "На складе",
             image = null
         )
-        /*     Order(
-                 id = null,
-                 title = null,
-                 code = "0811300016",
-                 date = null,
-                 status = null,  // Данного продукта не сущ. в базе
-                 image = null
-             )*/
     )
 
     private val currentDate: Date = Date()
@@ -52,7 +44,7 @@ class FakeOrderRepository : OrdersDatabase {
         image = null
     )
 
-    override suspend fun getOrder(id: String): Order {
+    override fun getOrder(id: String): Order {
         var order = notExistOrder
         fakeData.forEach {
             if (it.id == id) order = it

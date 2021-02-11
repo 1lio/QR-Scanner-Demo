@@ -5,7 +5,7 @@ import vi.sukhov.scanner.entity.Order
 
 interface OrdersDatabase {
 
-    suspend fun getOrder(id: String): Order
+    fun getOrder(id: String): Order
 
     suspend fun addOrder(order: Order)
 

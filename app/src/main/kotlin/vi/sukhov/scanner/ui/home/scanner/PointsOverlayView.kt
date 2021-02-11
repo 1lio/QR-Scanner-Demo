@@ -8,30 +8,19 @@ import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.View
 
-class PointsOverlayView : View {
+class PointsOverlayView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyle: Int = 0
+) : View(context, attrs, defStyle) {
+
     private var points: Array<PointF> = arrayOf()
     private var paint: Paint = Paint()
 
-    constructor(context: Context?) : super(context) {
-        init()
-    }
-
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-        init()
-    }
-
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    ) {
-        init()
-    }
-
-    private fun init() {
+    init {
         paint = Paint()
-        paint.setColor(Color.YELLOW)
-        paint.setStyle(Paint.Style.FILL)
+        paint.color = Color.YELLOW
+        paint.style = Paint.Style.FILL
     }
 
     fun setPoints(points: Array<PointF>) {
@@ -41,10 +30,13 @@ class PointsOverlayView : View {
 
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
-        if (points != null) {
-            for (pointF in points!!) {
-                canvas.drawCircle(pointF.x, pointF.y, 10f, paint)
-            }
+        for (pointF in points) {
+            canvas.drawCircle(pointF.x, pointF.y, 10f, paint)
         }
+    }
+
+    fun clear() {
+        points = arrayOf()
+        invalidate()
     }
 }

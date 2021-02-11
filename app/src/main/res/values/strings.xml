@@ -11,4 +11,7 @@
     <string name="confirm_receipt">Подтвердить получение</string>
     <string name="remove">Удалить</string>
 
+    <string name="on_off_qr_decoding">QR-декодирование</string>
+    <string name="on_off_flashlight">Подсветка</string>
+
 </resources>

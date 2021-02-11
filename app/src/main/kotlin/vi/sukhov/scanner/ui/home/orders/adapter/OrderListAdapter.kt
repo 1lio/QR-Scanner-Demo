@@ -1,17 +1,13 @@
 package vi.sukhov.scanner.ui.home.orders.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import vi.sukhov.scanner.databinding.ItemOrderBinding
 import vi.sukhov.scanner.entity.Order
+import vi.sukhov.scanner.ui.home.orders.ClickOrderListener
 
-interface ClickOrder {
-    fun onClick(id: String?)
-}
-
-class OrderListAdapter(private val itemClickListener: ClickOrder) :
+class OrderListAdapter(private val itemClickListener: ClickOrderListener) :
     RecyclerView.Adapter<OrderListAdapter.OrderViewHolder>() {
 
     private val list: ArrayList<Order> = arrayListOf()
