@@ -22,16 +22,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:gravity="center"
+        android:layout_margin="@dimen/default_margin_small"
         app:layout_constraintBottom_toBottomOf="@+id/qrDecoder"
         app:layout_constraintEnd_toStartOf="@+id/flashlight_checkbox"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <vi.sukhov.scanner.ui.home.scanner.PointsOverlayView
         android:id="@+id/points_overlay_view"
@@ -44,29 +39,24 @@
 
     <vi.sukhov.scanner.ui.view.CheckBoxImageView
         android:id="@+id/flashlight_checkbox"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginBottom="8dp"
+        style="@style/ThemeScannerButton"
+        android:layout_width="@dimen/image_icon_scanner_size"
+        android:layout_height="@dimen/image_icon_scanner_size"
+        android:layout_marginBottom="@dimen/default_margin_small"
         android:checked="true"
-        android:gravity="center"
         android:src="@drawable/ic_baseline_flash_on_24"
-        app:civ_border_color="@color/white"
-        app:civ_border_width="4dp"
-        app:civ_circle_background_color="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/enable_decoding_checkbox"
         app:layout_constraintEnd_toEndOf="@+id/enable_decoding_checkbox" />
 
     <vi.sukhov.scanner.ui.view.CheckBoxImageView
         android:id="@+id/enable_decoding_checkbox"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        style="@style/ThemeScannerButton"
+        android:layout_width="@dimen/image_icon_scanner_size"
+        android:layout_height="@dimen/image_icon_scanner_size"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"
         android:checked="false"
         android:src="@drawable/ic_qr_code_1"
-        app:civ_border_color="@color/white"
-        app:civ_border_width="4dp"
-        app:civ_circle_background_color="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
