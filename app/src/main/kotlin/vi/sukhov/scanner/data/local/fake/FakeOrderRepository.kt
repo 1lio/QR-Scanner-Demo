@@ -15,7 +15,7 @@ class FakeOrderRepository : OrdersDatabase {
     private val fakeData = mutableSetOf(
         Order(
             id = "0811300016",
-            title = "Фарнитура №1 FAKE",
+            title = "Фурнитура  №1 FAKE",
             code = "0811300016AD",
             date = "08.12.20",
             status = "В листе ожидания",
@@ -23,7 +23,7 @@ class FakeOrderRepository : OrdersDatabase {
         ),
         Order(
             id = "1792310627",
-            title = "Фарнитура №2 FAKE",
+            title = "Фурнитура  №2 FAKE",
             code = "1792310627DA",
             date = "12.12.21",
             status = "На складе",
