@@ -15,8 +15,7 @@ import vi.sukhov.scanner.ui.home.HomeActivity
 class OrderItemQR @JvmOverloads constructor(context: Context, attr: AttributeSet? = null) :
     LinearLayout(context, attr) {
 
-    private var viewModel: OrderItemViewModel =
-        ViewModelProvider(context as HomeActivity)[OrderItemViewModel::class.java]
+    private var viewModel: OrderItemViewModel = ViewModelProvider(context as HomeActivity)[OrderItemViewModel::class.java]
 
     init {
 
