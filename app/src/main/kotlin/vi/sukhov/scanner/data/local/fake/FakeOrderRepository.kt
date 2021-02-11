@@ -45,7 +45,9 @@ class FakeOrderRepository : OrdersDatabase {
     )
 
     override fun getOrder(id: String): Order {
-        var order = notExistOrder
+        var order = notExistOrder.apply {
+            code = id
+        }
         fakeData.forEach {
             if (it.id == id) order = it
         }
