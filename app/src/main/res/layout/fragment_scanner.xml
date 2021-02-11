@@ -17,16 +17,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <vi.sukhov.scanner.ui.home.orders.OrderItemQR
-        android:id="@+id/result_text_view"
+        android:id="@+id/resultView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/default_margin_small"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/qrDecoder"
-        app:layout_constraintEnd_toStartOf="@+id/flashlight_checkbox"
+        app:layout_constraintEnd_toStartOf="@+id/flashlightCheck"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <vi.sukhov.scanner.ui.home.scanner.PointsOverlayView
         android:id="@+id/points_overlay_view"
@@ -38,18 +40,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <vi.sukhov.scanner.ui.view.CheckBoxImageView
-        android:id="@+id/flashlight_checkbox"
+        android:id="@+id/flashlightCheck"
         style="@style/ThemeScannerButton"
         android:layout_width="@dimen/image_icon_scanner_size"
         android:layout_height="@dimen/image_icon_scanner_size"
         android:layout_marginBottom="@dimen/default_margin_small"
         android:checked="true"
         android:src="@drawable/ic_baseline_flash_on_24"
-        app:layout_constraintBottom_toTopOf="@+id/enable_decoding_checkbox"
-        app:layout_constraintEnd_toEndOf="@+id/enable_decoding_checkbox" />
+        app:layout_constraintBottom_toTopOf="@+id/decodingCheck"
+        app:layout_constraintEnd_toEndOf="@+id/decodingCheck" />
 
     <vi.sukhov.scanner.ui.view.CheckBoxImageView
-        android:id="@+id/enable_decoding_checkbox"
+        android:id="@+id/decodingCheck"
         style="@style/ThemeScannerButton"
         android:layout_width="@dimen/image_icon_scanner_size"
         android:layout_height="@dimen/image_icon_scanner_size"
