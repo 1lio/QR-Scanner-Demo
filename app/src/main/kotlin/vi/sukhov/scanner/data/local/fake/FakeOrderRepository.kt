@@ -28,6 +28,14 @@ class FakeOrderRepository : OrdersDatabase {
             date = "12.12.21",
             status = "На складе",
             image = null
+        ),
+        Order(
+            id = "6278310627",
+            title = "Фурнитура  №3 FAKE",
+            code = "1792310627DA",
+            date = "18.12.21",
+            status = "На складе",
+            image = null
         )
     )
 
