@@ -3,6 +3,8 @@ package vi.sukhov.scanner.util
 import android.content.Context
 import android.util.TypedValue
 import android.util.TypedValue.COMPLEX_UNIT_DIP
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 object Utils {
@@ -77,9 +79,12 @@ object Utils {
 
     fun toInitials(firstName: String?, lastName: String?): String? = when {
         firstName.isNullOrBlank() && lastName.isNullOrBlank() -> null
-        !firstName.isNullOrBlank() && lastName.isNullOrBlank() -> firstName[0].toUpperCase().toString()
-        firstName.isNullOrBlank() && !lastName.isNullOrBlank() -> lastName[0].toUpperCase().toString()
-        !firstName.isNullOrBlank() && !lastName.isNullOrBlank() -> firstName[0].toUpperCase() + lastName[0].toUpperCase().toString()
+        !firstName.isNullOrBlank() && lastName.isNullOrBlank() -> firstName[0].toUpperCase()
+            .toString()
+        firstName.isNullOrBlank() && !lastName.isNullOrBlank() -> lastName[0].toUpperCase()
+            .toString()
+        !firstName.isNullOrBlank() && !lastName.isNullOrBlank() -> firstName[0].toUpperCase() + lastName[0].toUpperCase()
+            .toString()
         else -> throw IllegalStateException("Incorrect state in 'when' expression")
     }
 
@@ -103,8 +108,23 @@ object Utils {
         TypedValue.applyDimension(COMPLEX_UNIT_DIP, this, context.resources.displayMetrics)
 
     fun Int.toDp(context: Context): Int =
-        TypedValue.applyDimension(COMPLEX_UNIT_DIP, this.toFloat(), context.resources.displayMetrics).toInt()
+        TypedValue.applyDimension(
+            COMPLEX_UNIT_DIP,
+            this.toFloat(),
+            context.resources.displayMetrics
+        ).toInt()
 
     fun Float.toSp(context: Context) =
-        TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, this, context.resources.displayMetrics)
+        TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_SP,
+            this,
+            context.resources.displayMetrics
+        )
+
+
+    fun getCurrentDate(): String {
+        val currentDate = Date()
+        val dateFormat: DateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+        return dateFormat.format(currentDate)
+    }
 }
