@@ -19,5 +19,7 @@
     <string name="create_account">Создать аккаунт</string>
     <string name="accounted">Уже есть аккаунт</string>
     <string name="register">Регистрация</string>
+    <string name="in_wait_list">В листе ожидания</string>
+    <string name="in_warehouse">На складе</string>
 
 </resources>

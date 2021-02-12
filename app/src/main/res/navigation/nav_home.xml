@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_orders"
-        android:name="vi.sukhov.scanner.ui.home.orders.OrdersFragment"
+        android:name="vi.sukhov.scanner.ui.home.orders.OrderListFragment"
         android:label="Orders"
         tools:layout="@layout/fragment_order_list">
         <action

@@ -1,4 +1,4 @@
-package vi.sukhov.scanner.ui.home.orders
+package vi.sukhov.scanner.ui.home.orders.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

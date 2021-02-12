@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import vi.sukhov.scanner.R
 import vi.sukhov.scanner.ui.home.HomeActivity
+import vi.sukhov.scanner.ui.home.orders.viewmodels.OrderItemViewModel
 
 @AndroidEntryPoint
 class OrderItemQR @JvmOverloads constructor(context: Context, attr: AttributeSet? = null) :

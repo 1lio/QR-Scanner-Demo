@@ -15,12 +15,15 @@ import vi.sukhov.scanner.core.common.BaseFragment
 import vi.sukhov.scanner.data.local.fake.FakeOrderRepository
 import vi.sukhov.scanner.databinding.FragmentOrderDetailBinding
 import vi.sukhov.scanner.ui.home.HomeActivity
+import vi.sukhov.scanner.util.Constants.IN_ORDER_ARG
 
 @AndroidEntryPoint
 class OrderDetailFragment : BaseFragment(R.layout.fragment_order_detail) {
 
     private val binding by viewBinding(FragmentOrderDetailBinding::bind)
-    private lateinit var navController: NavController
+    private val navController: NavController by lazy {
+        Navigation.findNavController(activity as HomeActivity, R.id.homeNavHostFragment)
+    }
 
     private var idOrder = ""
 
@@ -28,9 +31,7 @@ class OrderDetailFragment : BaseFragment(R.layout.fragment_order_detail) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController =
-            Navigation.findNavController(activity as HomeActivity, R.id.homeNavHostFragment)
-        idOrder = arguments?.getString("idOrder") ?: "not args"
+        idOrder = arguments?.getString(IN_ORDER_ARG) ?: ""
 
         GlobalScope.launch(Dispatchers.Main) { bindViews() }
     }
@@ -45,14 +46,14 @@ class OrderDetailFragment : BaseFragment(R.layout.fragment_order_detail) {
 
         binding.buttonMoveToWaitList.setOnClickListener {
             lifecycleScope.launch {
-                order.status = "В листе ожидания"
+                order.status = getString(R.string.in_wait_list)
                 repoTmp.updateOrder(order)
             }
         }
 
         binding.buttonConfirm.setOnClickListener {
             lifecycleScope.launch {
-                order.status = "Зачислено на склад"
+                order.status = getString(R.string.in_warehouse)
                 repoTmp.updateOrder(order)
             }
         }
@@ -63,7 +64,6 @@ class OrderDetailFragment : BaseFragment(R.layout.fragment_order_detail) {
                 navController.navigate(R.id.action_navigation_order_detail_to_navigation_orders)
             }
         }
-
 
     }
 }

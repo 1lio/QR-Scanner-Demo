@@ -14,14 +14,22 @@ import vi.sukhov.scanner.R
 import vi.sukhov.scanner.core.common.BaseFragment
 import vi.sukhov.scanner.databinding.FragmentOrderListBinding
 import vi.sukhov.scanner.ui.home.orders.adapter.OrderListAdapter
+import vi.sukhov.scanner.ui.home.orders.viewmodels.OrdersViewModel
+import vi.sukhov.scanner.util.Constants.IN_ORDER_ARG
 
 @AndroidEntryPoint
-class OrdersFragment : BaseFragment(R.layout.fragment_order_list) {
+class OrderListFragment : BaseFragment(R.layout.fragment_order_list) {
 
     private val binding: FragmentOrderListBinding by viewBinding()
     private val viewModel: OrdersViewModel by viewModels()
 
-    private val navController by lazy { findNavController(requireActivity(), R.id.homeNavHostFragment) }
+    private val navController by lazy {
+        findNavController(
+            requireActivity(),
+            R.id.homeNavHostFragment
+        )
+    }
+
     private val listAdapter by lazy { OrderListAdapter(onClickOrder()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,8 +42,15 @@ class OrdersFragment : BaseFragment(R.layout.fragment_order_list) {
         }
 
         lifecycleScope.launchWhenStarted {
-            viewModel.listOrders.collect {
-                listAdapter.updateListAndNotify(it)
+            viewModel.listOrders.collect { order ->
+
+                val inWaitList = order.filter { it.status == getString(R.string.in_wait_list) }.size
+                val inWarehouse = order.filter { it.status == getString(R.string.in_warehouse) }.size
+
+                binding.countInWarehouse.text = inWarehouse.toString()
+                binding.countWaitList.text = inWaitList.toString()
+
+                listAdapter.updateListAndNotify(order)
             }
         }
     }
@@ -44,7 +59,7 @@ class OrdersFragment : BaseFragment(R.layout.fragment_order_list) {
         return object : ClickOrderListener {
             override fun onClick(id: String?) {
 
-                val bundle = bundleOf("idOrder" to id)
+                val bundle = bundleOf(IN_ORDER_ARG to id)
 
                 navController.navigate(
                     R.id.action_navigation_orders_to_navigation_order_detail,

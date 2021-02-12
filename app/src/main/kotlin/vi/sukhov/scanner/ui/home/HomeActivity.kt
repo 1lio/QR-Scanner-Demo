@@ -18,10 +18,12 @@ class HomeActivity : BaseActivity(R.layout.activity_home) {
 
     private val navHostFragment by lazy { supportFragmentManager.findFragmentById(R.id.homeNavHostFragment) as NavHostFragment }
     private val navController by lazy { navHostFragment.findNavController() }
+
     private val binding: ActivityHomeBinding by viewBinding()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding.homeBottomNavView.setupWithNavController(navController)
         checkPermissions()
     }
