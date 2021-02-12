@@ -4,7 +4,8 @@ import android.Manifest.permission.CAMERA
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.os.Bundle
 import androidx.core.app.ActivityCompat
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,12 +16,12 @@ import vi.sukhov.scanner.databinding.ActivityHomeBinding
 @AndroidEntryPoint
 class HomeActivity : BaseActivity(R.layout.activity_home) {
 
+    private val navHostFragment by lazy { supportFragmentManager.findFragmentById(R.id.homeNavHostFragment) as NavHostFragment }
+    private val navController by lazy { navHostFragment.findNavController() }
     private val binding: ActivityHomeBinding by viewBinding()
-    private val navController by lazy { findNavController(R.id.homeNavHostFragment) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding.homeBottomNavView.setupWithNavController(navController)
         checkPermissions()
     }
@@ -35,12 +36,14 @@ class HomeActivity : BaseActivity(R.layout.activity_home) {
         }
     }
 
+    // Проверяем разрешения
     private fun checkPermissions() {
         if (ActivityCompat.checkSelfPermission(this, CAMERA) != PERMISSION_GRANTED) {
             requestCameraPermission()
         }
     }
 
+    // Запрашиваем доступ к камере
     private fun requestCameraPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, CAMERA)) {
             toast("Camera access is required to display the camera preview.")

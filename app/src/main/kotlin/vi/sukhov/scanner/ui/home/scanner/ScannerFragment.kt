@@ -24,7 +24,7 @@ class ScannerFragment : BaseFragment(R.layout.fragment_scanner),
         super.onViewCreated(view, savedInstanceState)
         initCamera()
 
-        binding.resultTextView.setOnClickListener {
+        binding.resultView.setOnClickListener {
             val bundle = bundleOf("idOrder" to idOrder)
             navController.navigate(R.id.action_navigation_scanner_to_navigation_order_detail, bundle)
         }
@@ -37,13 +37,13 @@ class ScannerFragment : BaseFragment(R.layout.fragment_scanner),
     private var flagFlash = false
     private var counterFlash = 0
     private fun onClickFlash() {
-        binding.flashlightCheckbox.setOnClickListener {
+        binding.flashlightCheck.setOnClickListener {
             counterFlash++
             flagFlash = counterFlash % 2 != 0
             if (flagFlash) {
-                binding.flashlightCheckbox.setImageResource(R.drawable.ic_baseline_flash_off_24)
+                binding.flashlightCheck.setImageResource(R.drawable.ic_baseline_flash_off_24)
             } else {
-                binding.flashlightCheckbox.setImageResource(R.drawable.ic_baseline_flash_on_24)
+                binding.flashlightCheck.setImageResource(R.drawable.ic_baseline_flash_on_24)
             }
 
             binding.qrDecoder.setTorchEnabled(
@@ -56,13 +56,13 @@ class ScannerFragment : BaseFragment(R.layout.fragment_scanner),
     private var counterScanner = 0
 
     private fun onClickScanner() {
-        binding.enableDecodingCheckbox.setOnClickListener {
+        binding.decodingCheck.setOnClickListener {
             counterScanner++
             flagScanner = counterScanner % 2 == 0
             if (flagScanner) {
-                binding.enableDecodingCheckbox.setImageResource(R.drawable.ic_qr_code_1)
+                binding.decodingCheck.setImageResource(R.drawable.ic_qr_code_1)
             } else {
-                binding.enableDecodingCheckbox.setImageResource(R.drawable.ic_qr_code_2)
+                binding.decodingCheck.setImageResource(R.drawable.ic_qr_code_2)
             }
             binding.qrDecoder.setQRDecodingEnabled(flagScanner)
             if (!flagScanner) binding.pointsOverlayView.clear()
@@ -90,8 +90,8 @@ class ScannerFragment : BaseFragment(R.layout.fragment_scanner),
 
     override fun onQRCodeRead(text: String?, points: Array<PointF>) {
         idOrder = text ?: ""
-        binding.resultTextView.setOrderId(text ?: "0")
-        binding.resultTextView.setOrderId(idOrder)
+        //binding.resultTextView.setOrderId(text ?: "0")
+        //binding.resultTextView.setOrderId(idOrder)
         binding.pointsOverlayView.setPoints(points)
     }
 

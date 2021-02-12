@@ -13,5 +13,11 @@
 
     <string name="on_off_qr_decoding">QR-декодирование</string>
     <string name="on_off_flashlight">Подсветка</string>
+    <string name="email">Email</string>
+    <string name="pass">Пароль</string>
+    <string name="login">Войти</string>
+    <string name="create_account">Создать аккаунт</string>
+    <string name="accounted">Уже есть аккаунт</string>
+    <string name="register">Регистрация</string>
 
 </resources>

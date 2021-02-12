@@ -21,7 +21,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
       /*  javaCompileOptions {
-            annotationProcessorOptions {
+            kapt {
                 arguments += mutableMapOf(
                     "room.incremental" to "true",
                     "room.expandProjection" to "true",
