@@ -33,5 +33,5 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideOrdersDatabase(): OrdersDatabase = FakeOrderRepository()
+    fun provideOrdersDatabase(): OrdersDatabase = FakeOrderRepository
 }

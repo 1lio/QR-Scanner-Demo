@@ -21,5 +21,7 @@
     <string name="register">Регистрация</string>
     <string name="in_wait_list">В листе ожидания</string>
     <string name="in_warehouse">На складе</string>
+    <string name="add_to_warehouse">Добавить на склад</string>
+    <string name="not_identified">Не идентифицируется</string>
 
 </resources>

@@ -27,7 +27,7 @@ class OrderDetailFragment : BaseFragment(R.layout.fragment_order_detail) {
 
     private var idOrder = ""
 
-    private val repoTmp = FakeOrderRepository()
+    private val repoTmp = FakeOrderRepository
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

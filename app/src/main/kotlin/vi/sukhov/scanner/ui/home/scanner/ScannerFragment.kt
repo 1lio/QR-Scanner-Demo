@@ -18,7 +18,9 @@ class ScannerFragment : BaseFragment(R.layout.fragment_scanner),
     private val binding by viewBinding(FragmentScannerBinding::bind)
     private var idOrder = ""
 
-    private val navController by lazy { Navigation.findNavController(context as HomeActivity, R.id.homeNavHostFragment) }
+    private val navController by lazy {
+        Navigation.findNavController(context as HomeActivity, R.id.homeNavHostFragment)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,12 +28,14 @@ class ScannerFragment : BaseFragment(R.layout.fragment_scanner),
 
         binding.resultView.setOnClickListener {
             val bundle = bundleOf("idOrder" to idOrder)
-            navController.navigate(R.id.action_navigation_scanner_to_navigation_order_detail, bundle)
+            navController.navigate(
+                R.id.action_navigation_scanner_to_navigation_order_detail,
+                bundle
+            )
         }
 
         onClickFlash()
         onClickScanner()
-
     }
 
     private var flagFlash = false

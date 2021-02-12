@@ -4,15 +4,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import vi.sukhov.scanner.data.local.OrdersDatabase
 import vi.sukhov.scanner.entity.Order
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
+import vi.sukhov.scanner.util.Utils.getCurrentDate
 import javax.inject.Singleton
 
 @Singleton
-class FakeOrderRepository : OrdersDatabase {
+object FakeOrderRepository : OrdersDatabase {
 
-    private val fakeData = mutableSetOf(
+    private val fakeData = mutableListOf(
         Order(
             id = "0811300016",
             title = "Фурнитура  №1 FAKE",
@@ -39,23 +37,20 @@ class FakeOrderRepository : OrdersDatabase {
         )
     )
 
-    private val currentDate: Date = Date()
-    private val dateFormat: DateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-    private val dateText: String = dateFormat.format(currentDate)
-
     private val notExistOrder = Order(
         id = "-1",
         title = "Нет в базе",
         code = null,
-        date = dateText,
+        date = getCurrentDate(),
         status = "Данного продукта не сущ. в базе",
         image = null
     )
 
     override fun getOrder(id: String): Order {
         var order = notExistOrder.apply {
-            code = id
+            this.id = id
         }
+
         fakeData.forEach {
             if (it.id == id) order = it
         }
@@ -63,6 +58,7 @@ class FakeOrderRepository : OrdersDatabase {
     }
 
     override suspend fun addOrder(order: Order) {
+        if (order.id.isNullOrEmpty() || order.id == "-1") order.id = order.code
         fakeData.add(order)
     }
 
