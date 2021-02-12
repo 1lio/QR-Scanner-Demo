@@ -71,7 +71,7 @@ class ScannerFragment : BaseFragment(R.layout.fragment_scanner),
 
     private fun initCamera() {
         binding.qrDecoder.apply {
-            setAutofocusInterval(1000L)
+            setAutofocusInterval(500L)
             setOnQRCodeReadListener(this@ScannerFragment)
             setBackCamera()
             startCamera()
@@ -90,8 +90,8 @@ class ScannerFragment : BaseFragment(R.layout.fragment_scanner),
 
     override fun onQRCodeRead(text: String?, points: Array<PointF>) {
         idOrder = text ?: ""
-        //binding.resultTextView.setOrderId(text ?: "0")
-        //binding.resultTextView.setOrderId(idOrder)
+        binding.resultView.setOrderId(text ?: "0")
+        binding.resultView.setOrderId(idOrder)
         binding.pointsOverlayView.setPoints(points)
     }
 

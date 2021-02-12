@@ -6,13 +6,4 @@ import vi.sukhov.scanner.util.Logger
 import javax.inject.Inject
 
 @HiltAndroidApp
-class QRScannerApp : Application() {
-
-    @Inject lateinit var logger: Logger
-
-    override fun onCreate() {
-        super.onCreate()
-
-        logger.configure()
-    }
-}
+class QRScannerApp : Application()
