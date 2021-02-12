@@ -24,7 +24,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Фарнитура" />
+            tools:text="Фурнитура" />
 
         <TextView
             android:id="@+id/code"
@@ -37,7 +37,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title"
-            tools:text="080005656001" />
+            tools:text="080005656001AD" />
 
         <TextView
             android:id="@+id/status"
