@@ -8,7 +8,9 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
@@ -16,6 +18,7 @@ import vi.sukhov.scanner.R
 import vi.sukhov.scanner.entity.Order
 import vi.sukhov.scanner.ui.home.HomeActivity
 import vi.sukhov.scanner.ui.home.orders.viewmodels.OrderItemViewModel
+import vi.sukhov.scanner.util.Constants.IN_ORDER_ARG
 import vi.sukhov.scanner.util.Utils.getCurrentDate
 
 @AndroidEntryPoint
@@ -30,6 +33,11 @@ class OrderItemQR @JvmOverloads constructor(context: Context, attr: AttributeSet
     private val code: TextView = v.findViewById(R.id.code)
     private val status: TextView = v.findViewById(R.id.status)
     private val buttonAdd: Button = v.findViewById(R.id.addToWarehouse)
+
+    private val navController by lazy {
+        Navigation.findNavController(context as HomeActivity, R.id.homeNavHostFragment)
+    }
+
 
     init {
 
@@ -73,11 +81,22 @@ class OrderItemQR @JvmOverloads constructor(context: Context, attr: AttributeSet
                             .show()
                         it.isEnabled = false
                     }
+
+                    setOnClickListener {
+                        val bundle = bundleOf(IN_ORDER_ARG to order.id)
+                        navController.navigate(
+                            R.id.action_navigation_scanner_to_navigation_order_detail,
+                            bundle
+                        )
+                    }
                 }
             }
 
 
         }
+
+
+
     }
 
 

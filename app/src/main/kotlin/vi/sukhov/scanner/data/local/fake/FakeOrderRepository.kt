@@ -41,7 +41,7 @@ object FakeOrderRepository : OrdersDatabase {
         id = "-1",
         title = "Нет в базе",
         code = null,
-        date = getCurrentDate(),
+        date = null,
         status = "Данного продукта не сущ. в базе",
         image = null
     )
