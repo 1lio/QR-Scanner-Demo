@@ -11,12 +11,12 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
 import vi.sukhov.scanner.R
 import vi.sukhov.scanner.entity.Order
 import vi.sukhov.scanner.ui.home.HomeActivity
 import vi.sukhov.scanner.ui.home.orders.viewmodels.OrderItemViewModel
 import vi.sukhov.scanner.util.Utils.getCurrentDate
-import java.util.*
 
 @AndroidEntryPoint
 class OrderItemQR @JvmOverloads constructor(context: Context, attr: AttributeSet? = null) :
@@ -35,42 +35,56 @@ class OrderItemQR @JvmOverloads constructor(context: Context, attr: AttributeSet
 
         visibility = View.GONE
 
-        viewModel.orderData.observe(context as HomeActivity) { order ->
+        GlobalScope.launch (Dispatchers.Main) {
+            viewModel.order.collect { order ->
 
-            title.text = order.title
-            code.text = order.id
-            status.text = order.status
+                if (order != null) {
 
-            setVisibility(order)
+                    title.text = order.title
+                    code.text = order.id
+                    status.text = order.status
 
-            visibility = if (title.text.isNullOrEmpty()) {
-                View.GONE
-            } else {
-                startSticking()
-                View.VISIBLE
+                    setVisibility(order)
+
+                    visibility = if (title.text.isNullOrEmpty()) {
+                        View.GONE
+                    } else {
+                        startSticking()
+                        View.VISIBLE
+                    }
+
+                    buttonAdd.isEnabled = true
+                    buttonAdd.setOnClickListener {
+                        val newOrder = Order(
+                            id = order.id,
+                            title = context.getString(R.string.not_identified),
+                            code = order.id,
+                            date = getCurrentDate(),
+                            status = context.getString(R.string.on_warehouse)
+                        )
+
+                        viewModel.addOrder(newOrder)
+
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.saving),
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                        it.isEnabled = false
+                    }
+                }
             }
 
-            buttonAdd.setOnClickListener {
-                val newOrder = Order(
-                    id = order.id,
-                    title = context.getString(R.string.not_identified),
-                    code = order.id,
-                    date = getCurrentDate(),
-                    status = context.getString(R.string.in_warehouse)
-                )
 
-                viewModel.addToWareHouse(newOrder)
-
-                Toast.makeText(context, "Saving...", Toast.LENGTH_SHORT).show()
-            }
         }
     }
 
 
     private fun setVisibility(order: Order) {
         buttonAdd.visibility =
-            if (order.status == context.getString(R.string.in_warehouse)
-                || order.status == context.getString(R.string.in_wait_list)
+            if (order.status == context.getString(R.string.on_warehouse) ||
+                order.status == context.getString(R.string.on_wait_list)
             ) View.GONE else View.VISIBLE
     }
 
@@ -78,21 +92,22 @@ class OrderItemQR @JvmOverloads constructor(context: Context, attr: AttributeSet
         viewModel.setOrderId(id)
     }
 
-    // Прилипание карточки к экрану на
+    // Прилипание карточки к экрану
     private var stickingJob: Job? = null
     private fun startSticking() {
 
-        if (stickingJob != null) stickingJob!!.cancel()
+        stickingJob?.cancel() ?: return
 
         stickingJob = GlobalScope.launch(Dispatchers.Main) {
             delay(HIDE_CARD_THROUGH_MILLISECONDS)
             visibility = View.GONE
         }
 
-        stickingJob!!.start()
+        stickingJob?.start() ?: return
     }
 
     private companion object {
         const val HIDE_CARD_THROUGH_MILLISECONDS = 8000L
     }
 }
+

@@ -5,13 +5,13 @@ import vi.sukhov.scanner.entity.Order
 
 interface OrdersDatabase {
 
-    fun getOrder(id: String): Order
+    fun getOrder(id: String): Order?
 
     suspend fun addOrder(order: Order)
 
     suspend fun updateOrder(order: Order)
 
-    suspend fun removeOrder(id: String)
+    suspend fun removeOrder(order: Order)
 
     fun removeAllOrders()
 

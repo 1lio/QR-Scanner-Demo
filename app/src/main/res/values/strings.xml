@@ -16,8 +16,10 @@
     <string name="send_order_to_wait_list">Перенести в лист ожидания</string>
     <string name="confirm_receipt">Подтвердить получение</string>
     <string name="remove">Удалить</string>
-    <string name="in_wait_list">В листе ожидания</string>
-    <string name="in_warehouse">На складе</string>
+    <string name="on_wait_list">В листе ожидания</string>
+    <string name="on_warehouse">На складе</string>
+    <string name="in_wait_list">В лист ожидания</string>
+    <string name="in_warehouse">На склад</string>
     <string name="add_to_warehouse">Добавить на склад</string>
 
     <!-- Auth -->
@@ -35,5 +37,6 @@
     <!-- Other -->
     <string name="not_identified">Не идентифицируется</string>
     <string name="wrong">Ошибка</string>
+    <string name="saving">Сохранение…</string>
 
 </resources>

@@ -22,30 +22,30 @@ class OrderListFragment : BaseFragment(R.layout.fragment_order_list) {
 
     private val binding: FragmentOrderListBinding by viewBinding()
     private val viewModel: OrdersViewModel by viewModels()
-
-    private val navController by lazy {
-        findNavController(
-            requireActivity(),
-            R.id.homeNavHostFragment
-        )
-    }
-
     private val listAdapter by lazy { OrderListAdapter(onClickOrder()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initRecycler()
+        observeList()
+    }
+
+    private fun initRecycler() {
         binding.recyclerOrders.run {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = listAdapter
         }
+    }
 
+    private fun observeList() {
         lifecycleScope.launchWhenStarted {
             viewModel.listOrders.collect { order ->
 
-                val inWaitList = order.filter { it.status == getString(R.string.in_wait_list) }.size
-                val inWarehouse = order.filter { it.status == getString(R.string.in_warehouse) }.size
+                val inWaitList = order.filter { it.status == getString(R.string.on_wait_list) }.size
+                val inWarehouse =
+                    order.filter { it.status == getString(R.string.on_warehouse) }.size
 
                 binding.countInWarehouse.text = inWarehouse.toString()
                 binding.countWaitList.text = inWaitList.toString()
@@ -55,17 +55,11 @@ class OrderListFragment : BaseFragment(R.layout.fragment_order_list) {
         }
     }
 
-    private fun onClickOrder(): ClickOrderListener {
-        return object : ClickOrderListener {
-            override fun onClick(id: String?) {
-
-                val bundle = bundleOf(IN_ORDER_ARG to id)
-
-                navController.navigate(
-                    R.id.action_navigation_orders_to_navigation_order_detail,
-                    bundle
-                )
-            }
+    private fun onClickOrder(): ClickOrderListener = object : ClickOrderListener {
+        override fun onClick(id: String?) {
+            val bundle = bundleOf(IN_ORDER_ARG to id)
+            findNavController(requireActivity(), R.id.homeNavHostFragment)
+                .navigate(R.id.action_navigation_orders_to_navigation_order_detail, bundle)
         }
     }
 

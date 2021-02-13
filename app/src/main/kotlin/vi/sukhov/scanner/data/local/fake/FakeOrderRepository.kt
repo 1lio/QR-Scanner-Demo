@@ -63,21 +63,12 @@ object FakeOrderRepository : OrdersDatabase {
     }
 
     override suspend fun updateOrder(order: Order) {
-        val id = order.id
-        fakeData.forEach {
-            if (it.id == id) {
-                fakeData.remove(it)
-                fakeData.add(order)
-            }
-        }
+        fakeData.remove(order)
+        fakeData.add(order)
     }
 
-    override suspend fun removeOrder(id: String) {
-        fakeData.forEach {
-            if (it.id == id) {
-                fakeData.remove(it)
-            }
-        }
+    override suspend fun removeOrder(order: Order) {
+        fakeData.remove(order)
     }
 
     override fun removeAllOrders() {
