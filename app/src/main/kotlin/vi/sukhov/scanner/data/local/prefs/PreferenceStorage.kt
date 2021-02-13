@@ -4,7 +4,11 @@ import kotlinx.coroutines.flow.Flow
 
 interface PreferenceStorage {
 
-     suspend fun isDarkMode(): Flow<Boolean>
+    // Auth
+    suspend fun isSigned(): Flow<Boolean>
+    suspend fun saveSign(isSigned:Boolean)
 
-     suspend fun saveDarkMode(isDarkMode: Boolean)
+    // Settings
+    suspend fun isDarkMode(): Flow<Boolean>
+    suspend fun saveDarkMode(isDarkMode: Boolean)
 }

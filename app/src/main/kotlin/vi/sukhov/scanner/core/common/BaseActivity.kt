@@ -1,5 +1,6 @@
 package vi.sukhov.scanner.core.common
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -17,7 +18,7 @@ import vi.sukhov.scanner.ui.AppSettingsViewModel
 @AndroidEntryPoint
 abstract class BaseActivity(@LayoutRes layout: Int) : AppCompatActivity(layout) {
 
-    private val viewModel: AppSettingsViewModel by viewModels()
+    val viewModel: AppSettingsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +39,7 @@ abstract class BaseActivity(@LayoutRes layout: Int) : AppCompatActivity(layout) 
 
     private fun observeModeTheme() {
         lifecycleScope.launch {
-            viewModel.getDarkMode().collect {
+            viewModel.isDarkMode().collect {
                 applyTheme(if (it) ThemeMode.DARK else ThemeMode.LIGHT)
             }
         }
@@ -46,6 +47,13 @@ abstract class BaseActivity(@LayoutRes layout: Int) : AppCompatActivity(layout) 
 
     fun toast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(this, msg, duration).show()
+    }
+
+    fun startActivity(requiredActivity: Class<*>) {
+        Intent(this, requiredActivity).apply {
+            startActivity(this)
+            finish()
+        }
     }
 
     // Тип темы сохраню как константу (мини оптимизация enum)

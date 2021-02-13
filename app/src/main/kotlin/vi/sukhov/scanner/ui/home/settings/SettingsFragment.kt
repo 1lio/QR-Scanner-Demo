@@ -29,32 +29,44 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         loadingSetting()    // Загружаем графическое отражение настроек
 
         // Устанавливаем обработчики
-        binding.settingsDarkModeSwitch.setOnCheckedChangeListener(::switchListener)
+        binding.settingsDarkModeSwitch.setOnCheckedChangeListener(::switchDarkMode)
+        binding.staySignedSwitch.setOnCheckedChangeListener(::switchStaySigned)
         binding.signOut.setOnClickListener(::signOut)
     }
 
-    private fun switchListener(buttonView: CompoundButton, isChecked: Boolean) {
+    private fun switchDarkMode(buttonView: CompoundButton, isChecked: Boolean) {
         lifecycleScope.launch {
             viewModel.saveDarkMode(isChecked)
         }
     }
 
-    private fun startActivityAuth() {
-        startActivity(AuthActivity::class.java)
+
+    private fun switchStaySigned(buttonView: CompoundButton, isChecked: Boolean) {
+        lifecycleScope.launch {
+            viewModel.saveSigned(isChecked)
+        }
     }
 
     private fun loadingSetting() {
-
         lifecycleScope.launch {
-            viewModel.getDarkMode().collect {
+
+            viewModel.isDarkMode().collect {
                 binding.settingsDarkModeSwitch.isChecked = it
             }
+
         }
+
+        lifecycleScope.launch {
+            viewModel.isSigned().collect {
+                binding.staySignedSwitch.isChecked = it
+            }
+        }
+
     }
 
     private fun signOut(view: View) {
         viewModel.signOut()
-        startActivityAuth()
+        startActivity(AuthActivity::class.java)
     }
 
 }
