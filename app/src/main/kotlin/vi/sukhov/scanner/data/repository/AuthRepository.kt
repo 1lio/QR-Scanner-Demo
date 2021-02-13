@@ -1,4 +1,4 @@
-package vi.sukhov.scanner.data.repository.auth
+package vi.sukhov.scanner.data.repository
 
 import com.google.firebase.auth.FirebaseAuth
 import javax.inject.Inject

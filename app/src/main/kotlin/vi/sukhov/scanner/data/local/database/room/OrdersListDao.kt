@@ -1,4 +1,4 @@
-package vi.sukhov.scanner.data.local.database
+package vi.sukhov.scanner.data.local.database.room
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow

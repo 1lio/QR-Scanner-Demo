@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import vi.sukhov.scanner.data.repository.settings.SettingsRepository
+import vi.sukhov.scanner.data.repository.SettingsRepository
 import javax.inject.Inject
 
 @HiltViewModel

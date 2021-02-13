@@ -2,18 +2,15 @@ package vi.sukhov.scanner.ui.home.orders.viewmodels
 
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
-import vi.sukhov.scanner.data.local.OrdersDatabase
+import vi.sukhov.scanner.data.gateway.OrdersStorage
 import vi.sukhov.scanner.entity.Order
-import vi.sukhov.scanner.ui.auth.AuthViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class OrderItemViewModel @Inject constructor(private val repository: OrdersDatabase) : ViewModel() {
+class OrderItemViewModel @Inject constructor(private val repository: OrdersStorage) : ViewModel() {
 
     private val _flowOrder: MutableStateFlow<Order?> = MutableStateFlow(null)
     val order: StateFlow<Order?> = _flowOrder

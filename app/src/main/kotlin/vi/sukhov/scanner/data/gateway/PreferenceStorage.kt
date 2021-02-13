@@ -1,4 +1,4 @@
-package vi.sukhov.scanner.data.local.prefs
+package vi.sukhov.scanner.data.gateway
 
 import kotlinx.coroutines.flow.Flow
 

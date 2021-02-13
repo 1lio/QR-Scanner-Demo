@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import vi.sukhov.scanner.data.repository.auth.AuthRepository
+import vi.sukhov.scanner.data.repository.AuthRepository
 import javax.inject.Inject
 
 @HiltViewModel

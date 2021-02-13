@@ -1,4 +1,4 @@
-package vi.sukhov.scanner.data.local.database
+package vi.sukhov.scanner.data.local.database.room
 
 object DB {
     const val DATABASE_NAME = "Order.DB"

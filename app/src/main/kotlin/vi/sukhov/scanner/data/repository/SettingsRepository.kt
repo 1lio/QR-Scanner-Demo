@@ -1,10 +1,11 @@
-package vi.sukhov.scanner.data.repository.settings
+package vi.sukhov.scanner.data.repository
 
 import kotlinx.coroutines.flow.Flow
-import vi.sukhov.scanner.data.local.prefs.PreferenceStorage
+import vi.sukhov.scanner.data.gateway.PreferenceStorage
 import javax.inject.Inject
 
-class SettingsRepository @Inject constructor(private val storage: PreferenceStorage) : PreferenceStorage {
+class SettingsRepository @Inject constructor(private val storage: PreferenceStorage) :
+    PreferenceStorage {
 
     override suspend fun isSigned(): Flow<Boolean> = storage.isSigned()
     override suspend fun saveSign(isSigned: Boolean) { storage.saveSign(isSigned) }

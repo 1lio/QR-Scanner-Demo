@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import vi.sukhov.scanner.data.gateway.PreferenceStorage
 import javax.inject.Inject
 import javax.inject.Singleton
 

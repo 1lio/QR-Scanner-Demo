@@ -4,12 +4,12 @@ import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import vi.sukhov.scanner.data.local.OrdersDatabase
+import vi.sukhov.scanner.data.gateway.OrdersStorage
 import vi.sukhov.scanner.entity.Order
 import javax.inject.Inject
 
 @HiltViewModel
-class OrdersViewModel @Inject constructor(repository: OrdersDatabase) : ViewModel() {
+class OrdersViewModel @Inject constructor(repository: OrdersStorage) : ViewModel() {
 
     private val _flowListOrders: MutableStateFlow<List<Order>> =
         MutableStateFlow(repository.getOrderList())

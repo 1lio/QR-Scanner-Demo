@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.createDataStore
 import kotlinx.coroutines.flow.*
+import vi.sukhov.scanner.data.gateway.PreferenceStorage
 import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton

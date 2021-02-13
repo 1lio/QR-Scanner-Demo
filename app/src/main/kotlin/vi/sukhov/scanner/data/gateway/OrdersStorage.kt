@@ -1,9 +1,9 @@
-package vi.sukhov.scanner.data.local
+package vi.sukhov.scanner.data.gateway
 
 import kotlinx.coroutines.flow.Flow
 import vi.sukhov.scanner.entity.Order
 
-interface OrdersDatabase {
+interface OrdersStorage {
 
     fun getOrder(id: String): Order?
 

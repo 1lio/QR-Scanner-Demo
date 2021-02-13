@@ -1,14 +1,13 @@
-package vi.sukhov.scanner.data.local.fake
+package vi.sukhov.scanner.data.local.database.fake
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import vi.sukhov.scanner.data.local.OrdersDatabase
+import vi.sukhov.scanner.data.gateway.OrdersStorage
 import vi.sukhov.scanner.entity.Order
-import vi.sukhov.scanner.util.Utils.getCurrentDate
 import javax.inject.Singleton
 
 @Singleton
-object FakeOrderRepository : OrdersDatabase {
+object FakeOrderRepository : OrdersStorage {
 
     private val fakeData = mutableListOf(
         Order(
