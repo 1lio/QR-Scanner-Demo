@@ -1,6 +1,5 @@
 package vi.sukhov.scanner.ui.auth
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -51,12 +50,14 @@ abstract class BaseAuthFragment : BaseFragment(R.layout.fragment_auth) {
                 val email = binding.emailInput.editText?.text.toString().trim()
                 val password = binding.passwordInput.editText?.text.toString().trim()
 
+                // Отправляем sing-action во viewModel
                 if (authType == AuthType.SIGN_IN) {
                     viewModel.signIn(email, password)
                 } else {
                     viewModel.signUp(email, password)
                 }
 
+                // Обозреваем состояние
                 viewModel.uiStates.collect {
                     when (it) {
                         is AuthViewModel.UiStates.Loading -> {
@@ -65,7 +66,8 @@ abstract class BaseAuthFragment : BaseFragment(R.layout.fragment_auth) {
                         is AuthViewModel.UiStates.Success -> {
                             delay(2000)
                             setVisibilityLoader(false)
-                            if (authType == AuthType.SIGN_IN) startHomeActivity() else moveToPrevScreen()
+                            // Выполняем sing-action в UI
+                            if (authType == AuthType.SIGN_IN) moveToHomeActivity() else moveToPrevScreen()
 
                         }
                         is AuthViewModel.UiStates.Error -> {
@@ -91,10 +93,7 @@ abstract class BaseAuthFragment : BaseFragment(R.layout.fragment_auth) {
         }
     }
 
-    private fun startHomeActivity() {
-        Intent(requireContext(), HomeActivity::class.java).apply {
-            startActivity(this)
-            requireActivity().finish()
-        }
+    private fun moveToHomeActivity() {
+        startActivity(HomeActivity::class.java)
     }
 }
