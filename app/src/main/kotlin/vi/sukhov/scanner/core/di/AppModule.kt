@@ -17,15 +17,11 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class AppModule {
 
-    // @Provides
-    // @Singleton
-    // fun providePreferenceStorage(@ApplicationContext context: Context): PreferenceStorage =
-    //     SharedPreferenceStorage(context)
-
     @Provides
     @Singleton
     fun provideStorage(@ApplicationContext context: Context): PreferenceStorage =
-        DataStoreStorage(context)
+        DataStoreStorage(context)          // Так ща модно)
+       // SharedPreferenceStorage(context) // По старинке
 
     @Provides
     @Singleton
