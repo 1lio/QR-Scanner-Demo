@@ -7,6 +7,6 @@ import androidx.fragment.app.Fragment
 abstract class BaseFragment(@LayoutRes layout: Int) : Fragment(layout) {
 
     fun toast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
-        Toast.makeText(activity, msg, duration).show()
+        Toast.makeText(requireActivity(), msg, duration).show()
     }
 }

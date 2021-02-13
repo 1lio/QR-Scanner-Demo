@@ -1,8 +1,8 @@
 package vi.sukhov.scanner.ui
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
@@ -14,17 +14,15 @@ import javax.inject.Inject
 class AppSettingsViewModel @Inject constructor(private val repository: SettingsRepository) :
     ViewModel() {
 
-    // Костыль переделать! 0))
-
     private val _flowDarkMode: MutableStateFlow<Boolean> =
         MutableStateFlow(repository.isDarkModeEnabled())
 
     init {
-        /*      GlobalScope.launch {
-                  repository.flowIsDarkMode().collect {
-                      _flowDarkMode.value = it
-                  }
-              }.start()*/
+        viewModelScope.launch {
+            repository.flowIsDarkMode().collect {
+                _flowDarkMode.value = it
+            }
+        }
     }
 
     val isDarkMode: StateFlow<Boolean> = _flowDarkMode

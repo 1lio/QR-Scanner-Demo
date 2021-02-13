@@ -9,7 +9,7 @@
         android:id="@+id/signInFragment"
         android:name="vi.sukhov.scanner.ui.auth.signIn.SignInFragment"
         android:label="SignInFragment"
-        tools:layout="@layout/fragment_sign_in">
+        tools:layout="@layout/fragment_auth">
         <action
             android:id="@+id/action_signInFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
@@ -18,7 +18,7 @@
         android:id="@+id/signUpFragment"
         android:name="vi.sukhov.scanner.ui.auth.signUp.SignUpFragment"
         android:label="SignUpFragment"
-        tools:layout="@layout/fragment_sign_up">
+        tools:layout="@layout/fragment_auth">
         <action
             android:id="@+id/action_signUpFragment_to_signInFragment"
             app:destination="@id/signInFragment" />

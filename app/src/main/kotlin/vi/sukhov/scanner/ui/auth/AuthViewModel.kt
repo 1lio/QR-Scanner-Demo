@@ -16,7 +16,7 @@ class AuthViewModel @Inject constructor(private val authRepo: AuthRepository) : 
     private val _flowStates: MutableStateFlow<UiStates> = MutableStateFlow(UiStates.EmptyState)
     val uiStates: StateFlow<UiStates> = _flowStates
 
-    fun signUpUser(email: String, password: String) {
+    fun signUp(email: String, password: String) {
         viewModelScope.launch {
             try {
                 _flowStates.value = UiStates.Loading
@@ -25,12 +25,11 @@ class AuthViewModel @Inject constructor(private val authRepo: AuthRepository) : 
             } catch (ex: Exception) {
                 _flowStates.value = UiStates.Error(ex.toString())
             }
-
         }
 
     }
 
-    fun signInUser(email: String, password: String) {
+    fun signIn(email: String, password: String) {
         viewModelScope.launch {
             try {
                 _flowStates.value = UiStates.Loading
