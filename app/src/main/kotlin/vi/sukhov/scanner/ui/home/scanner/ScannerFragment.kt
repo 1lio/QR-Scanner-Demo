@@ -22,38 +22,30 @@ class ScannerFragment : BaseFragment(R.layout.fragment_scanner),
         onClickScanner()
     }
 
-    private var flagFlash = false
-    private var counterFlash = 0
     private fun onClickFlash() {
         binding.flashlightCheck.setOnClickListener {
-            counterFlash++
-            flagFlash = counterFlash % 2 != 0
-            if (flagFlash) {
-                binding.flashlightCheck.setImageResource(R.drawable.ic_baseline_flash_off_24)
-            } else {
-                binding.flashlightCheck.setImageResource(R.drawable.ic_baseline_flash_on_24)
-            }
+            binding.flashlightCheck.onClick()
 
-            binding.qrDecoder.setTorchEnabled(
-                flagFlash
-            )
+            val isChecked = binding.flashlightCheck.isChecked()
+            val image = if (!isChecked) R.drawable.ic_flash_off else R.drawable.ic_flash_on
+
+            binding.flashlightCheck.setImageResource(image)
+            binding.qrDecoder.setTorchEnabled(!isChecked)
         }
     }
 
-    private var flagScanner = true
-    private var counterScanner = 0
-
     private fun onClickScanner() {
         binding.decodingCheck.setOnClickListener {
-            counterScanner++
-            flagScanner = counterScanner % 2 == 0
-            if (flagScanner) {
-                binding.decodingCheck.setImageResource(R.drawable.ic_qr_code_1)
-            } else {
-                binding.decodingCheck.setImageResource(R.drawable.ic_qr_code_2)
-            }
-            binding.qrDecoder.setQRDecodingEnabled(flagScanner)
-            if (!flagScanner) binding.pointsOverlayView.clear()
+
+            binding.decodingCheck.onClick()
+
+            val isChecked = binding.decodingCheck.isChecked()
+            val image = if (isChecked) R.drawable.ic_qr_code_1 else R.drawable.ic_qr_code_2
+
+            binding.decodingCheck.setImageResource(image)
+            binding.qrDecoder.setQRDecodingEnabled(isChecked)
+
+            if (!isChecked) binding.pointsOverlayView.clear()
         }
     }
 
@@ -78,7 +70,7 @@ class ScannerFragment : BaseFragment(R.layout.fragment_scanner),
 
     override fun onQRCodeRead(text: String?, points: Array<PointF>) {
         binding.resultView.setOrderId(text ?: "0")
-        binding.resultView.setOrderId( text ?: "")
+        binding.resultView.setOrderId(text ?: "")
         binding.pointsOverlayView.setPoints(points)
     }
 

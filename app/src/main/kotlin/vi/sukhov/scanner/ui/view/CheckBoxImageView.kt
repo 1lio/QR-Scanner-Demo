@@ -46,6 +46,8 @@ class CheckBoxImageView @JvmOverloads constructor(
     private var mBorderOverlay = false
     private var mDisableCircularTransformation = false
 
+    private var isChecked = true
+    private var counter = 0
 
     init {
 
@@ -64,6 +66,14 @@ class CheckBoxImageView @JvmOverloads constructor(
         )
         a.recycle()
         init()
+    }
+
+    fun isChecked(): Boolean =  isChecked
+
+
+    fun onClick() {
+        counter++
+        isChecked = counter % 2 == 0
     }
 
     private fun init() {

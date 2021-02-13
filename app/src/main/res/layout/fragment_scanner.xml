@@ -46,7 +46,7 @@
         android:layout_height="@dimen/image_icon_scanner_size"
         android:layout_marginBottom="@dimen/default_margin_small"
         android:checked="true"
-        android:src="@drawable/ic_baseline_flash_on_24"
+        android:src="@drawable/ic_flash_on"
         app:layout_constraintBottom_toTopOf="@+id/decodingCheck"
         app:layout_constraintEnd_toEndOf="@+id/decodingCheck" />
 
