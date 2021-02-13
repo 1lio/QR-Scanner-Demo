@@ -4,15 +4,15 @@ import kotlinx.coroutines.flow.Flow
 import vi.sukhov.scanner.data.local.prefs.PreferenceStorage
 import javax.inject.Inject
 
-class SettingsRepository @Inject constructor(private val preferenceStorage: PreferenceStorage) {
+class SettingsRepository @Inject constructor(private val preferenceStorage: PreferenceStorage) :
+    PreferenceStorage {
 
-    fun isDarkModeEnabled() : Boolean {
-        return preferenceStorage.isDarkMode
+    override suspend fun isDarkMode(): Flow<Boolean> {
+        return preferenceStorage.isDarkMode()
     }
 
-    fun setThemeMode(isDarkMode: Boolean) {
-        preferenceStorage.isDarkMode = isDarkMode
+    override suspend fun saveDarkMode(isDarkMode: Boolean) {
+        preferenceStorage.saveDarkMode(isDarkMode)
     }
 
-    fun flowIsDarkMode() : Flow<Boolean>  = preferenceStorage.flowIsDarkMode()
 }

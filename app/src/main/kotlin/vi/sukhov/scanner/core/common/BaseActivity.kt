@@ -6,7 +6,10 @@ import androidx.activity.viewModels
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import vi.sukhov.scanner.ui.AppSettingsViewModel
 
 // Общий код для всех активити
@@ -18,9 +21,6 @@ abstract class BaseActivity(@LayoutRes layout: Int) : AppCompatActivity(layout) 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Применяем выбранную тему
-        applyTheme(if (viewModel.isDarkModeOn()) ThemeMode.DARK else ThemeMode.LIGHT)
 
         // Наблюдаем за изменением темы
         observeModeTheme()
@@ -37,17 +37,11 @@ abstract class BaseActivity(@LayoutRes layout: Int) : AppCompatActivity(layout) 
     }
 
     private fun observeModeTheme() {
-        /*   lifecycleScope.launch {
-               viewModel.flowIsDarkMode().collect {
-                   applyTheme(if (!it) ThemeMode.DARK else ThemeMode.LIGHT)
-               }
-           }
-   */
-        /*  lifecycleScope.launchWhenCreated {
-                viewModel.isDarkMode.collect {
-                    applyTheme(if (it) ThemeMode.DARK else ThemeMode.LIGHT)
-                }
-            }*/
+        lifecycleScope.launch {
+            viewModel.getDarkMode().collect {
+                applyTheme(if (it) ThemeMode.DARK else ThemeMode.LIGHT)
+            }
+        }
     }
 
     fun toast(msg: String, duration: Int = Toast.LENGTH_SHORT) {

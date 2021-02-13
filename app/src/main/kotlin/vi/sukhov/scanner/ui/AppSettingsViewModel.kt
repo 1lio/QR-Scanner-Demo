@@ -1,34 +1,24 @@
 package vi.sukhov.scanner.ui
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import vi.sukhov.scanner.data.repository.settings.SettingsRepository
 import javax.inject.Inject
 
 @HiltViewModel
-class AppSettingsViewModel @Inject constructor(private val repository: SettingsRepository) :
-    ViewModel() {
+class AppSettingsViewModel @Inject constructor(private val repository: SettingsRepository) : ViewModel() {
 
-    private val _flowDarkMode: MutableStateFlow<Boolean> =
-        MutableStateFlow(repository.isDarkModeEnabled())
+    @Inject lateinit var firebaseAuth: FirebaseAuth
 
-    init {
-        viewModelScope.launch {
-            repository.flowIsDarkMode().collect {
-                _flowDarkMode.value = it
-            }
-        }
+    suspend fun getDarkMode() = repository.isDarkMode()
+
+    suspend fun saveDarkMode(isDark: Boolean) {
+        repository.saveDarkMode(isDark)
     }
 
-    val isDarkMode: StateFlow<Boolean> = _flowDarkMode
-
-    fun isDarkModeOn(): Boolean = repository.isDarkModeEnabled()
-
-    fun flowIsDarkMode() = repository.flowIsDarkMode()
-
+    // Выход из аккаунта
+    fun signOut() {
+        firebaseAuth.signOut()
+    }
 }
