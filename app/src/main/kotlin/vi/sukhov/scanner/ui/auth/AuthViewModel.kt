@@ -20,7 +20,7 @@ class AuthViewModel @Inject constructor(private val authRepo: AuthRepository) : 
         viewModelScope.launch {
             try {
                 _flowStates.value = UiStates.Loading
-                authRepo.getAuthCreds().createUserWithEmailAndPassword(email, password).await()
+                authRepo.getAuth().createUserWithEmailAndPassword(email, password).await()
                 _flowStates.value = UiStates.Success
             } catch (ex: Exception) {
                 _flowStates.value = UiStates.Error(ex.toString())
@@ -33,7 +33,7 @@ class AuthViewModel @Inject constructor(private val authRepo: AuthRepository) : 
         viewModelScope.launch {
             try {
                 _flowStates.value = UiStates.Loading
-                authRepo.getAuthCreds().signInWithEmailAndPassword(email, password).await()
+                authRepo.getAuth().signInWithEmailAndPassword(email, password).await()
                 _flowStates.value = UiStates.Success
             } catch (ex: Exception) {
                 _flowStates.value = UiStates.Error(ex.toString())

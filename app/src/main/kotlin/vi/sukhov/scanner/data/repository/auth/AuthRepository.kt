@@ -5,6 +5,6 @@ import javax.inject.Inject
 
 class AuthRepository @Inject constructor(private val firebaseAuth: FirebaseAuth) {
 
-    fun getAuthCreds(): FirebaseAuth = firebaseAuth
+    fun getAuth(): FirebaseAuth = firebaseAuth
 
 }
