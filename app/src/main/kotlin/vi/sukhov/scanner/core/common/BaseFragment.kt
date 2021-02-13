@@ -4,8 +4,6 @@ import android.content.Intent
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import vi.sukhov.scanner.ui.home.HomeActivity
-import kotlin.reflect.KProperty
 
 abstract class BaseFragment(@LayoutRes layout: Int) : Fragment(layout) {
 

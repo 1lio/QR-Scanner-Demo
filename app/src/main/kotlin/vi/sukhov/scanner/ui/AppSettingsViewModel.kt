@@ -14,6 +14,8 @@ class AppSettingsViewModel @Inject constructor(
     private val firebaseAuth: FirebaseAuth
 ) : ViewModel() {
 
+    // Получилось транзитивно
+
     suspend fun isSigned() = repository.isSigned()
 
     suspend fun saveSigned(isSigned: Boolean) {
