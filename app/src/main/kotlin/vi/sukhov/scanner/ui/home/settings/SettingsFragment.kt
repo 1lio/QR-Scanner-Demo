@@ -62,6 +62,11 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
             }
         }
 
+        lifecycleScope.launch {
+            viewModel.observeUser().collect {
+                binding.user.text = it.name ?: ""
+            }
+        }
     }
 
     private fun signOut(view: View) {

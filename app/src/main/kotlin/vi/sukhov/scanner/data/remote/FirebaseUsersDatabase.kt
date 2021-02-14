@@ -21,17 +21,18 @@ object FirebaseUsersDatabase : UsersStorage {
     private val usersRef = repository.getReference(USERS_REFERENCE)
 
     override suspend fun createUser(user: User) {
-        usersRef.child(user.id).setValue(user)
+        val id = user.id
+        if (id != null) usersRef.child(id).setValue(user)
     }
 
     @ExperimentalCoroutinesApi
     override suspend fun getUserById(id: String): Flow<User> = callbackFlow {
 
-        val eventListener = usersRef.addValueEventListener(object : ValueEventListener {
+        val eventListener = usersRef.child(id).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 snapshot.let {
                     val user = snapshot.getValue(User::class.java)
-                    this@callbackFlow.sendBlocking(user!!)
+                    this@callbackFlow.sendBlocking(user)
                 }
             }
 
@@ -47,7 +48,8 @@ object FirebaseUsersDatabase : UsersStorage {
     }
 
     override suspend fun updateUser(user: User) {
-        usersRef.child(user.id).setValue(user)
+        val id = user.id
+        if (id != null) usersRef.child(id).setValue(user)
     }
 
     override suspend fun removeUserById(id: String) {
