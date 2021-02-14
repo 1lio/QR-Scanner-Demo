@@ -1,13 +1,14 @@
 package vi.sukhov.scanner.data.remote
 
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import vi.sukhov.scanner.data.gateway.OrdersStorage
 import vi.sukhov.scanner.entity.Order
 
-// Заглушка
+object FirebaseOrderDatabase : OrdersStorage {
 
-class RealtimeDatabase : OrdersStorage {
+    private val repository = FirebaseDatabase.getInstance()
 
     override fun getOrder(id: String): Order? {
         return null

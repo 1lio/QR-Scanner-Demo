@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import vi.sukhov.scanner.data.local.database.room.DB.DATABASE_NAME
 import vi.sukhov.scanner.data.local.database.room.DB.DATABASE_VERSION
 
-@Database(entities = [OrdersListEntity::class], version = DATABASE_VERSION, exportSchema = false)
+@Database(entities = [OrderEntity::class], version = DATABASE_VERSION, exportSchema = false)
 abstract class OrdersDatabase : RoomDatabase() {
 
     abstract fun ordersListDao(): OrdersListDao

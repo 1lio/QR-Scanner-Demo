@@ -1,14 +1,11 @@
 package vi.sukhov.scanner.core.di
 
 import android.content.Context
-import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import vi.sukhov.scanner.data.gateway.OrdersStorage
-import vi.sukhov.scanner.data.local.database.fake.FakeOrderRepository
 import vi.sukhov.scanner.data.gateway.PreferenceStorage
 import vi.sukhov.scanner.data.local.prefs.DataStoreStorage
 import javax.inject.Singleton
@@ -23,11 +20,7 @@ class AppModule {
         DataStoreStorage(context)          // Так ща модно)
        // SharedPreferenceStorage(context) // По старинке
 
-    @Provides
+    /*@Provides
     @Singleton
-    fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
-
-    @Provides
-    @Singleton
-    fun provideOrdersDatabase(): OrdersStorage = FakeOrderRepository
+    fun provideOrdersDatabase(): OrdersStorage = FakeOrderRepository*/
 }

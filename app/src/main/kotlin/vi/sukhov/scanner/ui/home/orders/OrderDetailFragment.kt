@@ -14,7 +14,7 @@ import vi.sukhov.scanner.core.common.BaseFragment
 import vi.sukhov.scanner.databinding.FragmentOrderDetailBinding
 import vi.sukhov.scanner.ui.home.HomeActivity
 import vi.sukhov.scanner.ui.home.orders.viewmodels.OrderItemViewModel
-import vi.sukhov.scanner.util.Constants.IN_ORDER_ARG
+import vi.sukhov.scanner.core.common.Constants.IN_ORDER_ARG
 
 @AndroidEntryPoint
 class OrderDetailFragment : BaseFragment(R.layout.fragment_order_detail) {

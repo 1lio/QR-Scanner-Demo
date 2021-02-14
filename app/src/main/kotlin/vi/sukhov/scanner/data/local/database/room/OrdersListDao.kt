@@ -7,20 +7,18 @@ import kotlinx.coroutines.flow.Flow
 interface OrdersListDao {
 
     @Query("Select * from orders_list")
-    fun getOrderListFlow(): Flow<List<OrdersListEntity>>
+    fun getOrderListFlow(): Flow<List<OrderEntity>>
 
     @Query("Select * from orders_list where id = :id")
-    suspend fun getOrder(id: String): OrdersListEntity
+    suspend fun getOrder(id: String): OrderEntity
 
     //Inserts data. If row already exists, replace the row
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(stockList: List<OrdersListEntity>)
+    suspend fun insert(stockList: List<OrderEntity>)
 
-    //Update the row
     @Update
-    suspend fun updateOrder(order: OrdersListEntity): Int
+    suspend fun updateOrder(order: OrderEntity): Int
 
-    // Delete all rows
     @Query("Delete from orders_list where id = :id")
     suspend fun removeOrder(id: String)
 
