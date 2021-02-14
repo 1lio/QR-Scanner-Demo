@@ -51,7 +51,7 @@ class ScannerFragment : BaseFragment(R.layout.fragment_scanner),
 
     private fun initCamera() {
         binding.qrDecoder.apply {
-            setAutofocusInterval(500L)
+            setAutofocusInterval(800L)
             setOnQRCodeReadListener(this@ScannerFragment)
             setBackCamera()
             startCamera()
