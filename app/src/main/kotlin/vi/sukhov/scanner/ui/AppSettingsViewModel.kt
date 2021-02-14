@@ -25,8 +25,13 @@ class AppSettingsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            repository.getUser().collect {
-                userID = it.id ?: ""
+            try {
+
+                repository.getUser().collect {
+                    userID = it.id ?: ""
+                }
+            } catch (e: Exception) {
+                //Валится т.к. по дефолту пусто
             }
         }
     }
