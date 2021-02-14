@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment
 
 abstract class BaseFragment(@LayoutRes layout: Int) : Fragment(layout) {
 
-    fun toast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
-        Toast.makeText(requireActivity(), msg, duration).show()
+    fun toast(msg: CharSequence, duration: Int = Toast.LENGTH_SHORT, show: Boolean = true): Toast {
+        val toast = Toast.makeText(requireActivity(), msg, duration)
+        if (show) toast.show()
+        return toast
     }
 
     fun startActivity(requiredActivity: Class<*>) {
