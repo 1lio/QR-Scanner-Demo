@@ -1,24 +1,56 @@
 package vi.sukhov.scanner.data.remote
 
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.channels.sendBlocking
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import vi.sukhov.scanner.data.gateway.UsersStorage
 import vi.sukhov.scanner.entity.User
 import java.util.*
 
 object FirebaseUsersDatabase : UsersStorage {
+    private const val USERS_REFERENCE = "users"
 
-    override fun createUser(user: User) {
-        //
+    private val repository = Firebase.database
+    private val usersRef = repository.getReference(USERS_REFERENCE)
+
+    override suspend fun createUser(user: User) {
+        usersRef.child(user.id).setValue(user)
     }
 
-    override fun getUserById(id: String): User {
-        return User(UUID.randomUUID().toString(), "TEST")
+    @ExperimentalCoroutinesApi
+    override suspend fun getUserById(id: String): Flow<User> = callbackFlow {
+
+        val eventListener = usersRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                snapshot.let {
+                    val user = snapshot.getValue(User::class.java)
+                    this@callbackFlow.sendBlocking(user!!)
+                }
+            }
+
+            override fun onCancelled(snapshot: DatabaseError) {
+                this@callbackFlow.close(snapshot.toException())
+            }
+        })
+
+        awaitClose {
+            usersRef.removeEventListener(eventListener)
+        }
+
     }
 
-    override fun updateUser(user: User) {
-        //
+    override suspend fun updateUser(user: User) {
+        usersRef.child(user.id).setValue(user)
     }
 
-    override fun removeUserById(id: String) {
-        //
+    override suspend fun removeUserById(id: String) {
+        usersRef.child(id).removeValue()
     }
 }

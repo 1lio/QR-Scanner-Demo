@@ -41,7 +41,7 @@ class OrderListFragment : BaseFragment(R.layout.fragment_order_list) {
 
     private fun observeList() {
         lifecycleScope.launchWhenStarted {
-            viewModel.listOrders.collect { order ->
+            viewModel.flowOrders().collect { order ->
 
                 val inWaitList = order.filter { it.status == getString(R.string.on_wait_list) }.size
                 val inWarehouse =

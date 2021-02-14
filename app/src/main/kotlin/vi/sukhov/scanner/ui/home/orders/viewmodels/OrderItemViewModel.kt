@@ -16,7 +16,9 @@ class OrderItemViewModel @Inject constructor(private val repository: OrdersStora
     val order: StateFlow<Order?> = _flowOrder
 
     fun setOrderId(id: String) {
-        _flowOrder.value = repository.getOrder(id)
+        viewModelScope.launch {
+            _flowOrder.value = repository.getOrder(id)
+        }
     }
 
     fun addOrder(order: Order) {
