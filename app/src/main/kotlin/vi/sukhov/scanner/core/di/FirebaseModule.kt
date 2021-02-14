@@ -28,7 +28,7 @@ class FirebaseModule {
 
     @Provides
     @Singleton
-    fun provideOrdersDatabase(): OrdersStorage = FakeOrderRepository
+    fun provideOrdersDatabase(): OrdersStorage = FirebaseOrderDatabase
 
     @Provides
     @Singleton
