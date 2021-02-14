@@ -9,11 +9,14 @@ import vi.sukhov.scanner.entity.Order
 import javax.inject.Inject
 
 @HiltViewModel
-class OrdersViewModel @Inject constructor(repository: OrdersStorage) : ViewModel() {
+class OrdersViewModel @Inject constructor(private val repository: OrdersStorage) : ViewModel() {
 
-    private val _flowListOrders: MutableStateFlow<List<Order>> =
+    private val _flowListOrders: MutableStateFlow<List<Order>?> =
         MutableStateFlow(repository.getOrderList())
 
-    val listOrders: StateFlow<List<Order>> = _flowListOrders
+   // val listOrders: StateFlow<List<Order>> = _flowListOrders ?: listOf<>()
+
+    fun flowOrders() = repository.getOrderListFlow()
+
 
 }
