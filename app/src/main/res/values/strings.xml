@@ -34,6 +34,9 @@
     <string name="on_off_qr_decoding">QR-декодирование</string>
     <string name="on_off_flashlight">Подсветка</string>
 
+    <!-- Chat -->
+    <string name="send_message">Отправить сообщение</string>
+
     <!-- Other -->
     <string name="not_identified">Не идентифицируется</string>
     <string name="wrong">Ошибка</string>
