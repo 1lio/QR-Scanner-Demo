@@ -42,7 +42,7 @@ class OrderItemQR @JvmOverloads constructor(context: Context, attr: AttributeSet
 
         visibility = View.GONE
 
-        GlobalScope.launch(Dispatchers.Main) {
+        GlobalScope.launch (Dispatchers.Main) {
             viewModel.order.collect { order ->
 
                 if (order != null) {
@@ -53,12 +53,7 @@ class OrderItemQR @JvmOverloads constructor(context: Context, attr: AttributeSet
 
                     setVisibility(order)
 
-                    visibility = if (title.text.isNullOrEmpty()) {
-                        View.GONE
-                    } else {
-                        startSticking()
-                        View.VISIBLE
-                    }
+                    startSticking()
 
                     buttonAdd.isEnabled = true
                     buttonAdd.setOnClickListener {
@@ -90,22 +85,20 @@ class OrderItemQR @JvmOverloads constructor(context: Context, attr: AttributeSet
                     }
                 }
             }
-
-
         }
-
 
     }
 
 
     private fun setVisibility(order: Order) {
-        val views = listOf(buttonAdd, code)
-        views.forEach {
-            it.visibility =
-                if (order.status == context.getString(R.string.on_warehouse) ||
-                    order.status == context.getString(R.string.on_wait_list)
-                ) View.GONE else View.VISIBLE
-        }
+       // code.visibility = if (code.text == "-1") View.GONE else View.VISIBLE
+
+        visibility = if (title.text.isNullOrEmpty())   View.GONE else View.VISIBLE
+
+        buttonAdd.visibility =
+            if (order.status == context.getString(R.string.on_warehouse) ||
+                order.status == context.getString(R.string.on_wait_list)
+            ) View.GONE else View.VISIBLE
     }
 
     fun setOrderId(id: String) {

@@ -5,7 +5,9 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.flow.Flow
@@ -81,13 +83,10 @@ object FirebaseOrderDatabase : OrdersStorage {
 
     }
 
+    @ExperimentalCoroutinesApi
     override suspend fun removeOrder(order: Order) {
-        try {
             val id = order.id
             if (id != null) repository.getReference(ORDERS_REFERENCE).child(id).removeValue()
-        } catch (e: Exception) {
-            // Падаем в корутине. Завтра на свежую голову попробую разобраться, если никто не помешает.
-        }
     }
 
     override fun removeAllOrders() {
