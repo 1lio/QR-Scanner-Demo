@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import vi.sukhov.scanner.data.gateway.OrdersStorage
 import vi.sukhov.scanner.entity.Order
@@ -17,7 +18,9 @@ class OrderItemViewModel @Inject constructor(private val repository: OrdersStora
 
     fun setOrderId(id: String) {
         viewModelScope.launch {
-            _flowOrder.value = repository.getOrder(id)
+            repository.getOrder(id).collect {
+                _flowOrder.value = it
+            }
         }
     }
 
