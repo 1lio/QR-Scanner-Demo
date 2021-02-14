@@ -5,7 +5,7 @@ import vi.sukhov.scanner.entity.Order
 
 interface OrdersStorage {
 
-    fun getOrder(id: String): Order?
+    suspend fun getOrder(id: String): Flow<Order>
 
     suspend fun addOrder(order: Order)
 
@@ -15,9 +15,8 @@ interface OrdersStorage {
 
     fun removeAllOrders()
 
-    // flow
     fun getOrderListFlow(): Flow<List<Order>>
 
-    // sync
+    @Deprecated("[sync] Used only in local")
     fun getOrderList(): List<Order>
 }

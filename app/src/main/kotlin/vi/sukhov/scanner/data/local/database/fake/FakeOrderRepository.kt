@@ -45,15 +45,15 @@ object FakeOrderRepository : OrdersStorage {
         image = null
     )
 
-    override suspend fun getOrder(id: String): Order {
+    override suspend fun getOrder(id: String): Flow<Order> = flow {
         var order = notExistOrder.apply {
             this.id = id
         }
-
         fakeData.forEach {
             if (it.id == id) order = it
         }
-        return order
+
+        emit(order)
     }
 
     override suspend fun addOrder(order: Order) {
@@ -82,7 +82,7 @@ object FakeOrderRepository : OrdersStorage {
         }
     }
 
-    override  fun getOrderList(): List<Order> {
+    override fun getOrderList(): List<Order> {
         return fakeData.toList()
     }
 }
