@@ -4,6 +4,8 @@ plugins {
     id("org.jetbrains.kotlin.kapt")
     id("com.google.gms.google-services")
     id("dagger.hilt.android.plugin")
+    //   id("com.google.protobuf") version "0.8.12"
+    //   kotlin("plugin.serialization") version "1.4.30"
 }
 
 android {
@@ -20,15 +22,15 @@ android {
         consumerProguardFiles("consumer-rules.pro")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-      /*  javaCompileOptions {
-            kapt {
-                arguments += mutableMapOf(
-                    "room.incremental" to "true",
-                    "room.expandProjection" to "true",
-                    "room.schemaLocation" to "$projectDir/schemas"
-                )
-            }
-        }*/
+        /*  javaCompileOptions {
+              kapt {
+                  arguments += mutableMapOf(
+                      "room.incremental" to "true",
+                      "room.expandProjection" to "true",
+                      "room.schemaLocation" to "$projectDir/schemas"
+                  )
+              }
+          }*/
     }
 
     buildTypes {
@@ -82,6 +84,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVer")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVer")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutineVer")
+    //  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0-RC") //Kotlin serialization
 
     // Base
     implementation("androidx.core:core-ktx:1.3.2")
@@ -139,7 +142,8 @@ dependencies {
     // Mics
     implementation("com.jakewharton.timber:timber:4.7.1")
     implementation("com.kirich1409.viewbindingpropertydelegate:viewbindingpropertydelegate:1.4.1")
-    implementation ("com.github.bumptech.glide:glide:4.11.0")
+    implementation("com.github.bumptech.glide:glide:4.11.0")
+    // implementation("com.google.protobuf:protobuf-javalite:3.11.0")   // Proto
 
     // Proto
     implementation("com.google.protobuf:protobuf-javalite:3.11.0")
