@@ -38,12 +38,11 @@ class OrderItemQR @JvmOverloads constructor(context: Context, attr: AttributeSet
         Navigation.findNavController(context as HomeActivity, R.id.homeNavHostFragment)
     }
 
-
     init {
 
         visibility = View.GONE
 
-        GlobalScope.launch (Dispatchers.Main) {
+        GlobalScope.launch(Dispatchers.Main) {
             viewModel.order.collect { order ->
 
                 if (order != null) {
@@ -96,15 +95,17 @@ class OrderItemQR @JvmOverloads constructor(context: Context, attr: AttributeSet
         }
 
 
-
     }
 
 
     private fun setVisibility(order: Order) {
-        buttonAdd.visibility =
-            if (order.status == context.getString(R.string.on_warehouse) ||
-                order.status == context.getString(R.string.on_wait_list)
-            ) View.GONE else View.VISIBLE
+        val views = listOf(buttonAdd, code)
+        views.forEach {
+            it.visibility =
+                if (order.status == context.getString(R.string.on_warehouse) ||
+                    order.status == context.getString(R.string.on_wait_list)
+                ) View.GONE else View.VISIBLE
+        }
     }
 
     fun setOrderId(id: String) {
