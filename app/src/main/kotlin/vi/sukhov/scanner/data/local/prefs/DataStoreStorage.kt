@@ -45,7 +45,7 @@ class DataStoreStorage @Inject constructor(context: Context) : PreferenceStorage
 
     override suspend fun saveUser(user: User) {
         dataStore.edit { prefs ->
-            prefs[UserScheme.FIELD_ID] = user.id
+            prefs[UserScheme.FIELD_ID] = user.id ?: ""
             prefs[UserScheme.FIELD_NAME] = user.name ?: ""
         }
     }
