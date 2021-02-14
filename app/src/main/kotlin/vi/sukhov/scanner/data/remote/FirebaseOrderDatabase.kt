@@ -1,37 +1,141 @@
 package vi.sukhov.scanner.data.remote
 
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.callbackFlow
 import vi.sukhov.scanner.data.gateway.OrdersStorage
 import vi.sukhov.scanner.entity.Order
+import java.util.*
+import kotlin.collections.ArrayList
 
 object FirebaseOrderDatabase : OrdersStorage {
 
-    private val repository = FirebaseDatabase.getInstance()
+    private const val ORDERS_REFERENCE = "orders"
 
-    override fun getOrder(id: String): Order? {
-        return null
+    private val repository = Firebase.database
+    private val orderRef = repository.getReference(ORDERS_REFERENCE)
+
+    private val notExistOrder = Order(
+        id = "-1",
+        title = "Нет в базе",
+        code = null,
+        date = null,
+        status = "Данного продукта не сущ. в базе",
+        image = null
+    )
+
+    @ExperimentalCoroutinesApi
+    override suspend fun getOrder(id: String): Flow<Order> = callbackFlow {
+
+        val eventListener = orderRef.child(id)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    snapshot.let {
+                        // Проблема с приведением типов. Упроно думает что string это лонг несмотря на кавычки в БД.
+                        // Решено пока так.
+                        val order = Order(
+                            id = it.key ?: notExistOrder.id,
+                            title = it.child("title").getValue(String::class.java)
+                                ?: notExistOrder.title,
+                            code = it.child("code").getValue(String::class.java)
+                                ?: notExistOrder.code,
+                            date = it.child("date").getValue(String::class.java)
+                                ?: notExistOrder.date,
+                            status = it.child("status").getValue(String::class.java)
+                                ?: notExistOrder.status,
+                            image = it.child("image").getValue(String::class.java)
+                                ?: notExistOrder.image,
+                        )
+
+                        this@callbackFlow.sendBlocking(order)
+                    }
+                }
+
+                override fun onCancelled(snapshot: DatabaseError) {
+                    this@callbackFlow.close(snapshot.toException())
+                }
+            })
+
+        awaitClose {
+            orderRef.removeEventListener(eventListener)
+        }
+
     }
 
     override suspend fun addOrder(order: Order) {
-
+        val id =
+            if (order.id != null && order.id != "-1") order.id else UUID.randomUUID().toString()
+        repository.getReference(ORDERS_REFERENCE).child(id!!).setValue(order)
     }
 
     override suspend fun updateOrder(order: Order) {
+        val id = order.id
+        if (id != null) repository.getReference(ORDERS_REFERENCE).child(id).setValue(order)
+
     }
 
     override suspend fun removeOrder(order: Order) {
+        try {
+            val id = order.id
+            if (id != null) repository.getReference(ORDERS_REFERENCE).child(id).removeValue()
+        } catch (e: Exception) {
+            // Падаем в корутине. Завтра на свежую голову попробую разобраться, если никто не помешает.
+        }
     }
 
     override fun removeAllOrders() {
+        // Такую функцию лучше не делать)
     }
 
-    override fun getOrderListFlow(): Flow<List<Order>> {
-        return flow { }
+    @ExperimentalCoroutinesApi
+    override fun getOrderListFlow(): Flow<List<Order>> = callbackFlow {
+
+        val eventListener = orderRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                snapshot.let {
+
+                    val list: ArrayList<Order> = arrayListOf()
+                    for (s: DataSnapshot in snapshot.children) {
+
+                        // Проблема с приведением типов. Упроно думает что string это лонг несмотря на кавычки в БД.
+                        // Решено пока так.
+                        val order = Order(
+                            id = s.key ?: notExistOrder.id,
+                            title = s.child("title").getValue(String::class.java)
+                                ?: notExistOrder.title,
+                            code = s.child("code").getValue(String::class.java)
+                                ?: notExistOrder.code,
+                            date = s.child("date").getValue(String::class.java)
+                                ?: notExistOrder.date,
+                            status = s.child("status").getValue(String::class.java)
+                                ?: notExistOrder.status,
+                            image = s.child("image").getValue(String::class.java)
+                                ?: notExistOrder.image,
+                        )
+
+                        list.add(order)
+                    }
+                    this@callbackFlow.sendBlocking(list)
+                }
+            }
+
+            override fun onCancelled(snapshot: DatabaseError) {
+                this@callbackFlow.close(snapshot.toException())
+            }
+        })
+
+        awaitClose {
+            orderRef.removeEventListener(eventListener)
+        }
     }
 
-    override fun getOrderList(): List<Order> {
-        return listOf()
-    }
+    // Не используется
+    override fun getOrderList(): List<Order> = emptyList()
 }

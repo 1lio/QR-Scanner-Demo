@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class OrdersRepository @Inject constructor(private val storage: OrdersStorage) : OrdersStorage {
 
-    override fun getOrder(id: String): Order? {
+    override suspend fun getOrder(id: String): Flow<Order> {
         return storage.getOrder(id)
     }
 
@@ -31,7 +31,7 @@ class OrdersRepository @Inject constructor(private val storage: OrdersStorage) :
         return storage.getOrderListFlow()
     }
 
-    override fun getOrderList(): List<Order> {
+    override  fun getOrderList(): List<Order> {
         return storage.getOrderList()
     }
 
