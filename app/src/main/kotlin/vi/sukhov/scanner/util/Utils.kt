@@ -3,6 +3,9 @@ package vi.sukhov.scanner.util
 import android.content.Context
 import android.util.TypedValue
 import android.util.TypedValue.COMPLEX_UNIT_DIP
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import com.google.android.material.snackbar.Snackbar
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -121,10 +124,6 @@ object Utils {
             context.resources.displayMetrics
         )
 
+    fun getCurrentDate(): String = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(Date())
 
-    fun getCurrentDate(): String {
-        val currentDate = Date()
-        val dateFormat: DateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-        return dateFormat.format(currentDate)
-    }
 }

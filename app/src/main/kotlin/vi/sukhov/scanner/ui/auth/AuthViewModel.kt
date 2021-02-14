@@ -6,7 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
+import vi.sukhov.scanner.core.common.UiStates
 import vi.sukhov.scanner.data.repository.AuthRepository
 import javax.inject.Inject
 
@@ -20,7 +20,7 @@ class AuthViewModel @Inject constructor(private val authRepo: AuthRepository) : 
         viewModelScope.launch {
             try {
                 _flowStates.value = UiStates.Loading
-                authRepo.getAuth().createUserWithEmailAndPassword(email, password).await()
+                authRepo.signUpWithEmailAndPassword(email, password)
                 _flowStates.value = UiStates.Success
             } catch (ex: Exception) {
                 _flowStates.value = UiStates.Error(ex.toString())
@@ -33,19 +33,11 @@ class AuthViewModel @Inject constructor(private val authRepo: AuthRepository) : 
         viewModelScope.launch {
             try {
                 _flowStates.value = UiStates.Loading
-                authRepo.getAuth().signInWithEmailAndPassword(email, password).await()
+                authRepo.signInWithEmailAndPassword(email, password)
                 _flowStates.value = UiStates.Success
             } catch (ex: Exception) {
                 _flowStates.value = UiStates.Error(ex.toString())
             }
         }
     }
-
-    sealed class UiStates {
-        object Loading : UiStates()
-        object Success : UiStates()
-        data class Error(var exception: String) : UiStates()
-        object EmptyState : UiStates()
-    }
-
 }

@@ -1,4 +1,4 @@
-package vi.sukhov.scanner.util
+package vi.sukhov.scanner.core.common
 
 object Constants {
 
