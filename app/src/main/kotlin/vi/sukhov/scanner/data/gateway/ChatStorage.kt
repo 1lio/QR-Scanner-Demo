@@ -1,5 +1,6 @@
 package vi.sukhov.scanner.data.gateway
 
+import kotlinx.coroutines.flow.Flow
 import vi.sukhov.scanner.entity.ChatMessage
 
 interface ChatStorage {
@@ -12,6 +13,6 @@ interface ChatStorage {
 
     fun replyMessage(replyId: String, msg: ChatMessage)
 
-    fun getMessages(): List<ChatMessage>
+    fun getMessages(): Flow<List<ChatMessage>>
 
 }

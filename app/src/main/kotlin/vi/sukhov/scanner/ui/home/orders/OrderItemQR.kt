@@ -25,8 +25,7 @@ import vi.sukhov.scanner.util.Utils.getCurrentDate
 class OrderItemQR @JvmOverloads constructor(context: Context, attr: AttributeSet? = null) :
     LinearLayout(context, attr) {
 
-    private var viewModel: OrderItemViewModel =
-        ViewModelProvider(context as HomeActivity)[OrderItemViewModel::class.java]
+    private var viewModel: OrderItemViewModel = ViewModelProvider(context as HomeActivity)[OrderItemViewModel::class.java]
 
     private val v = LayoutInflater.from(context).inflate(R.layout.item_order_qr, this)
     private val title: TextView = v.findViewById(R.id.title)

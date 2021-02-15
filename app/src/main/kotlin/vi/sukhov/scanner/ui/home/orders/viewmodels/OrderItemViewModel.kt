@@ -39,6 +39,7 @@ class OrderItemViewModel @Inject constructor(private val repository: OrdersStora
     fun removeOrder(order: Order) {
         viewModelScope.launch {
             repository.removeOrder(order)
+
         }
     }
 

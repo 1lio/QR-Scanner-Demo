@@ -10,6 +10,7 @@ import dagger.hilt.components.SingletonComponent
 import vi.sukhov.scanner.data.gateway.ChatStorage
 import vi.sukhov.scanner.data.gateway.OrdersStorage
 import vi.sukhov.scanner.data.gateway.UsersStorage
+import vi.sukhov.scanner.data.local.database.fake.FakeChatRepository
 import vi.sukhov.scanner.data.remote.FirebaseChatDatabase
 import vi.sukhov.scanner.data.remote.FirebaseOrderDatabase
 import vi.sukhov.scanner.data.remote.FirebaseUsersDatabase
@@ -37,6 +38,6 @@ class FirebaseModule {
 
     @Provides
     @Singleton
-    fun provideChatDatabase(): ChatStorage = FirebaseChatDatabase
+    fun provideChatDatabase(): ChatStorage = FakeChatRepository
 
 }

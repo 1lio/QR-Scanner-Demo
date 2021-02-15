@@ -1,5 +1,7 @@
 package vi.sukhov.scanner.data.remote
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import vi.sukhov.scanner.data.gateway.ChatStorage
 import vi.sukhov.scanner.entity.ChatMessage
 
@@ -21,7 +23,7 @@ object FirebaseChatDatabase : ChatStorage {
         //
     }
 
-    override fun getMessages(): List<ChatMessage> {
-        return emptyList()
+    override fun getMessages(): Flow<List<ChatMessage>> {
+        return flow {}
     }
 }
