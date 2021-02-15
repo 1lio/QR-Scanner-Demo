@@ -50,7 +50,7 @@ class OrderListFragment : BaseFragment(R.layout.fragment_order_list) {
                 binding.countInWarehouse.text = inWarehouse.toString()
                 binding.countWaitList.text = inWaitList.toString()
 
-                listAdapter.updateListAndNotify(order)
+                listAdapter.addAllAndNotify(order)
             }
         }
     }
