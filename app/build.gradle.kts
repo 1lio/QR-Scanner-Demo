@@ -4,6 +4,8 @@ plugins {
     id("org.jetbrains.kotlin.kapt")
     id("com.google.gms.google-services")
     id("dagger.hilt.android.plugin")
+    //   id("com.google.protobuf") version "0.8.12"
+    //   kotlin("plugin.serialization") version "1.4.30"
 }
 
 android {
@@ -19,6 +21,16 @@ android {
 
         consumerProguardFiles("consumer-rules.pro")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        /*  javaCompileOptions {
+              kapt {
+                  arguments += mutableMapOf(
+                      "room.incremental" to "true",
+                      "room.expandProjection" to "true",
+                      "room.schemaLocation" to "$projectDir/schemas"
+                  )
+              }
+          }*/
     }
 
     buildTypes {
@@ -27,7 +39,6 @@ android {
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
-
         getByName("debug") {
             isMinifyEnabled = false
             applicationIdSuffix = ".debug"
@@ -73,6 +84,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVer")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVer")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutineVer")
+    //  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0-RC") //Kotlin serialization
 
     // Base
     implementation("androidx.core:core-ktx:1.3.2")
@@ -80,8 +92,9 @@ dependencies {
     implementation("com.google.android.material:material:1.3.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation("androidx.viewpager2:viewpager2:1.0.0")
-    implementation("androidx.activity:activity-ktx:1.1.0")
-    implementation("androidx.fragment:fragment-ktx:1.3.0-rc02")
+    implementation("androidx.activity:activity-ktx:1.2.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.2.0")
+    implementation("androidx.fragment:fragment-ktx:1.3.0")
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:26.4.0"))
@@ -91,7 +104,7 @@ dependencies {
     implementation("com.google.firebase:firebase-storage-ktx")
 
     // Navigation
-    val navVer = "2.0.0"
+    val navVer = "2.2.0-rc03"
     implementation("androidx.navigation:navigation-fragment-ktx:$navVer")
     implementation("androidx.navigation:navigation-ui-ktx:$navVer")
 
@@ -102,7 +115,10 @@ dependencies {
     implementation("androidx.camera:camera-view:1.0.0-alpha21")    // CameraX View class
 
     // DataStore
-    implementation("androidx.datastore:datastore:1.0.0-alpha06")
+    val datastoreVer = "1.0.0-alpha06"
+    implementation("androidx.datastore:datastore:$datastoreVer")
+    implementation("androidx.datastore:datastore-core:$datastoreVer")
+    implementation("androidx.datastore:datastore-preferences:$datastoreVer")
 
     // Room
     val roomVer = "2.2.6"
@@ -126,6 +142,11 @@ dependencies {
     // Mics
     implementation("com.jakewharton.timber:timber:4.7.1")
     implementation("com.kirich1409.viewbindingpropertydelegate:viewbindingpropertydelegate:1.4.1")
+    implementation("com.github.bumptech.glide:glide:4.11.0")
+    // implementation("com.google.protobuf:protobuf-javalite:3.11.0")   // Proto
+
+    // Proto
+    implementation("com.google.protobuf:protobuf-javalite:3.11.0")
 
     // Tests
     testImplementation("junit:junit:4.13.1")

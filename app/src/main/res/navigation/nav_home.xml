@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/navigation_scanner">
+
+    <fragment
+        android:id="@+id/navigation_scanner"
+        android:name="vi.sukhov.scanner.ui.home.scanner.ScannerFragment"
+        android:label="Scanner"
+        tools:layout="@layout/fragment_scanner">
+        <action
+            android:id="@+id/action_navigation_scanner_to_navigation_order_detail"
+            app:destination="@id/navigation_order_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_orders"
+        android:name="vi.sukhov.scanner.ui.home.orders.OrderListFragment"
+        android:label="Orders"
+        tools:layout="@layout/fragment_order_list">
+        <action
+            android:id="@+id/action_navigation_orders_to_navigation_order_detail"
+            app:destination="@id/navigation_order_detail" />
+        <argument
+            android:name="idOrder"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_order_detail"
+        android:name="vi.sukhov.scanner.ui.home.orders.OrderDetailFragment"
+        android:label="Order Detail"
+        tools:layout="@layout/fragment_order_detail">
+        <action
+            android:id="@+id/action_navigation_order_detail_to_navigation_orders"
+            app:destination="@id/navigation_orders" />
+        <argument
+            android:name="idOrder"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_chat"
+        android:name="vi.sukhov.scanner.ui.home.chat.ChatFragment"
+        android:label="Chat"
+        tools:layout="@layout/fragment_chat" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="vi.sukhov.scanner.ui.home.settings.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings" />
+</navigation>
