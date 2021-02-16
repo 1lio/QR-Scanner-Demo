@@ -20,12 +20,12 @@ class ChatRecyclerAdapter : BaseRecyclerAdapter<ChatMessage, BaseViewHolder<Chat
         val inflater = LayoutInflater.from(ctx)
 
         val msgBinding = ChatItemBinding.inflate(inflater, parent, false)
-       // val msgOrderBinding = ChatItemOrderBinding.inflate(inflater, parent, false)
+        // val msgOrderBinding = ChatItemOrderBinding.inflate(inflater, parent, false)
 
         return when (viewType) {
             MsgType.SYSTEM_MSG -> MsgSystemViewHolder(msgBinding)
-           // MsgType.SYSTEM_MSG_ORDER -> MsgSystemAndOrderViewHolder(msgOrderBinding)
-           // MsgType.USER_MSG_ORDER -> MsgUserAndOrderViewHolder(msgOrderBinding)
+            // MsgType.SYSTEM_MSG_ORDER -> MsgSystemAndOrderViewHolder(msgOrderBinding)
+            // MsgType.USER_MSG_ORDER -> MsgUserAndOrderViewHolder(msgOrderBinding)
             else -> MsgUserViewHolder(msgBinding)
         }
     }
@@ -38,7 +38,7 @@ class ChatRecyclerAdapter : BaseRecyclerAdapter<ChatMessage, BaseViewHolder<Chat
         BaseViewHolder<ChatMessage>(v.root) {
         override fun bind(item: ChatMessage) {
             v.username.text = item.author
-            v.username.setTextColor(ctx!!.getColor(R.color.black))
+            v.username.setTextColor(ctx!!.getColor(R.color.blue))
             v.message.text = item.message
         }
 
@@ -48,7 +48,7 @@ class ChatRecyclerAdapter : BaseRecyclerAdapter<ChatMessage, BaseViewHolder<Chat
         BaseViewHolder<ChatMessage>(v.root) {
         override fun bind(item: ChatMessage) {
             v.chatUsername.text = item.author
-            v.chatUsername.setTextColor(ctx!!.getColor(R.color.black))
+            v.chatUsername.setTextColor(ctx!!.getColor(R.color.blue))
             v.chatMessage.text = item.message
             if (item.orderId != null) {
                 v.chatOrder.setOrderId(item.orderId)

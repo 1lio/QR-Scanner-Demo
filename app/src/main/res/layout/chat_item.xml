@@ -8,20 +8,19 @@
     android:orientation="vertical"
     android:paddingTop="@dimen/default_margin">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/username"
-        style="?android:textAppearanceMedium"
         android:layout_width="match_parent"
+        android:textSize="@dimen/heading2_text_size"
         android:layout_height="wrap_content"
         android:singleLine="false"
-        android:textColor="?android:textColorPrimary"
         android:textStyle="bold"
         tools:text="Vasiya" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/message"
-        style="?android:textAppearanceMedium"
         android:layout_width="match_parent"
+        android:textSize="@dimen/heading3_text_size"
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:textColor="?android:textColorPrimary"
