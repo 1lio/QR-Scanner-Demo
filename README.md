@@ -1,4 +1,5 @@
 ![version](https://img.shields.io/badge/version-0.0.1-blue)
+
 Ветка разработки [dev](https://github.com/1lio/QR-Scanner-Demo/tree/dev)
 
 # QR-Scanner-Demo
