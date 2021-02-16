@@ -42,16 +42,21 @@ class OrderDetailFragment : BaseFragment(R.layout.fragment_order_detail) {
                     binding.statusDetailOrder.text = order.status
                     binding.dateDetailOrder.text = order.date
 
+                    // Block buttons
+                    updateLockButtons()
+
                     binding.buttonMoveToWaitList.setOnClickListener {
                         binding.statusDetailOrder.text = getString(R.string.on_wait_list)
                         viewModel.updateOrder(
                             order.apply { status = getString(R.string.on_wait_list) })
+                        updateLockButtons()
                     }
 
-                    binding.buttonConfirm.setOnClickListener {
+                    binding.buttonMoveToWarehouse.setOnClickListener {
                         binding.statusDetailOrder.text = getString(R.string.on_warehouse)
                         viewModel.updateOrder(
                             order.apply { status = getString(R.string.on_warehouse) })
+                        updateLockButtons()
                     }
 
                     binding.buttonRemove.setOnClickListener {
@@ -62,6 +67,11 @@ class OrderDetailFragment : BaseFragment(R.layout.fragment_order_detail) {
             }
         }
 
+    }
+
+    private fun updateLockButtons() {
+        binding.buttonMoveToWaitList.isEnabled = binding.statusDetailOrder.text != getString(R.string.on_wait_list)
+        binding.buttonMoveToWarehouse.isEnabled = binding.statusDetailOrder.text != getString(R.string.on_warehouse)
     }
 
     private fun moveToOrdersList() {
