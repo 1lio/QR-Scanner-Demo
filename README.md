@@ -4,7 +4,7 @@
 * Ветка разработки [dev](https://github.com/1lio/QR-Scanner-Demo/tree/dev)
 * Последяя сборка [загрузить](https://github.com/1lio/QR-Scanner-Demo/raw/master/project/app.apk)
 * UML приложения [открыть](https://github.com/1lio/QR-Scanner-Demo/blob/master/project/QrScannerSchema.drawio)
-* Схема для тестирования [Открыть](https://github.com/1lio/QR-Scanner-Demo/blob/master/project/qr's.png)
+* QR'ы для тестирования [Открыть](https://github.com/1lio/QR-Scanner-Demo/blob/master/project/qr's.png)
 * Логин/пароль Test@test.ru / 123456
 
 ***
