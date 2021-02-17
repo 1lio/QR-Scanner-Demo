@@ -1,15 +1,17 @@
-package vi.sukhov.scanner.data.local.database.room
+package vi.sukhov.scanner.data.local.database.room.dao
 
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
+import vi.sukhov.scanner.data.local.database.room.DB.TABLE_ORDERS
+import vi.sukhov.scanner.data.local.database.room.models.OrderEntity
 
 @Dao
 interface OrdersListDao {
 
-    @Query("Select * from orders_list")
+    @Query("Select * from $TABLE_ORDERS")
     fun getOrderListFlow(): Flow<List<OrderEntity>>
 
-    @Query("Select * from orders_list where id = :id")
+    @Query("Select * from $TABLE_ORDERS where id = :id")
     suspend fun getOrder(id: String): OrderEntity
 
     //Inserts data. If row already exists, replace the row
@@ -19,10 +21,10 @@ interface OrdersListDao {
     @Update
     suspend fun updateOrder(order: OrderEntity): Int
 
-    @Query("Delete from orders_list where id = :id")
+    @Query("Delete from $TABLE_ORDERS where id = :id")
     suspend fun removeOrder(id: String)
 
-    @Query("Delete from orders_list")
+    @Query("Delete from $TABLE_ORDERS")
     fun removeAll()
 
 }
