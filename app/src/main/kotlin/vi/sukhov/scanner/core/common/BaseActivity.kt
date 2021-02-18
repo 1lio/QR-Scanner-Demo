@@ -11,7 +11,9 @@ import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import vi.sukhov.scanner.R
 import vi.sukhov.scanner.ui.AppSettingsViewModel
+import vi.sukhov.scanner.util.NetworkUtil.onNetworkAvailableListener
 
 // Общий код для всех активити
 
@@ -25,6 +27,11 @@ abstract class BaseActivity(@LayoutRes layout: Int) : AppCompatActivity(layout) 
 
         // Наблюдаем за изменением темы
         observeModeTheme()
+
+        // Вешаем слушатель проверки наличия интернета
+        onNetworkAvailableListener {
+            if (!it) toast(getString(R.string.network_not_available))
+        }
     }
 
     private fun applyTheme(theme: Int) {
