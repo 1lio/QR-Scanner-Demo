@@ -7,39 +7,37 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import vi.sukhov.scanner.data.gateway.PreferenceStorage
 import vi.sukhov.scanner.data.gateway.UsersStorage
-import vi.sukhov.scanner.data.repository.SettingsRepository
 import vi.sukhov.scanner.entity.User
 import javax.inject.Inject
 
 @HiltViewModel
 class AppSettingsViewModel @Inject constructor(
-    private val repository: SettingsRepository,
+    private val preferences: PreferenceStorage,
+    private val usersStorage: UsersStorage,
     private val firebaseAuth: FirebaseAuth,
-    private val usersStorage: UsersStorage
 ) : ViewModel() {
 
     private var userID = ""
 
     // Получилось транзитивно
-
     init {
         viewModelScope.launch {
             try {
-
-                repository.getUser().collect {
+                preferences.getUser().collect {
                     userID = it.id ?: ""
                 }
             } catch (e: Exception) {
-                //Валится т.к. по дефолту пусто
+                // Свалится т.к. по дефолту пусто
             }
         }
     }
 
-    suspend fun isSigned() = repository.isSigned()
+    suspend fun isSigned() = preferences.isSigned()
 
     suspend fun saveSigned(isSigned: Boolean) {
-        repository.saveSign(isSigned)
+        preferences.saveSign(isSigned)
     }
 
     // Выход из аккаунта
@@ -50,10 +48,10 @@ class AppSettingsViewModel @Inject constructor(
         }
     }
 
-    suspend fun isDarkMode() = repository.isDarkMode()
+    suspend fun isDarkMode() = preferences.isDarkMode()
 
     suspend fun saveDarkMode(isDark: Boolean) {
-        repository.saveDarkMode(isDark)
+        preferences.saveDarkMode(isDark)
     }
 
     suspend fun observeUser(): Flow<User> = usersStorage.getUserById(userID)

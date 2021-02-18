@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import vi.sukhov.scanner.R
 import vi.sukhov.scanner.ui.AppSettingsViewModel
-import vi.sukhov.scanner.util.NetworkUtil.onNetworkAvailableListener
+import vi.sukhov.scanner.util.NetworkUtils.onNetworkAvailableListener
 
 // Общий код для всех активити
 

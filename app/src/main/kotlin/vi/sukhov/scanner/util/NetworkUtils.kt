@@ -6,7 +6,7 @@ import android.net.ConnectivityManager.NetworkCallback
 import android.net.Network
 import android.os.Build
 
-object NetworkUtil {
+object NetworkUtils {
 
     private fun checkNetworkInfo(
         context: Context,
@@ -47,9 +47,7 @@ object NetworkUtil {
         })
     }
 
-}
-
-
-interface OnConnectionStatusChange {
-    fun onChange(type: Boolean)
+    interface OnConnectionStatusChange {
+        fun onChange(type: Boolean)
+    }
 }
