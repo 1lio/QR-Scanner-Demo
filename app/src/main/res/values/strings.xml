@@ -42,4 +42,7 @@
     <string name="wrong">Ошибка</string>
     <string name="saving">Сохранение…</string>
 
+    <!-- Network -->
+    <string name="network_not_available">Разрыв интернет соединения</string>
+
 </resources>
